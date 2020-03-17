@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const scripts = require('./userscripts');
 
+const PORT = 3000;
+
 // take the URL to open in Puppeteer from the input script parameter
 let inputURL = process.argv.slice(2)[0];
 
@@ -71,5 +73,9 @@ app.get('/index', (req, res) => {
 app.use('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 })
+
+app.use('/', express.static('../index.html'));
+
+app.listen(PORT, () => { console.log(`app listening on port ${PORT}`) });
 
 module.exports = app;
