@@ -35,7 +35,7 @@ const runScript = async (script) => {
 
 // RUN THIS TO RECORD USER ACTIONS FROM BROWSER AND CREATE PUPPET SCRIPT
 const addScript = async () => {
-  console.log('ADD SCRIPT');
+  console.log('RECORD SCRIPT');
   const pathToExtension = require('path').join(__dirname, '../extension');
   const browser = await puppeteer.launch({
     headless: false,
