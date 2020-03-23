@@ -1,0 +1,49 @@
+{
+  "name": "Puppeteer Recorder",
+  "version": "0.7.2",
+  "manifest_version": 2,
+  "description": "A Chrome extension for recording browser interaction and generating Puppeteer scripts",
+  "permissions": [
+    "storage",
+    "webNavigation",
+    "tabs",
+    "contextMenus",
+    "*://*/"
+  ],
+  "icons" : {
+    "16": "images/app_icon_16.png",
+    "128": "images/app_icon_128.png"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": "images/icon-black.png",
+    "default_title": "Puppeteer Recorder",
+    "default_popup": "index.html"
+  },
+  "commands": {
+    "TOGGLE_SCREENSHOT_MODE": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+A",
+        "mac": "Command+Shift+A"
+      },
+      "description": "Take screenshot"
+    },
+    "TOGGLE_SCREENSHOT_CLIPPED_MODE": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Take screenshot clipped"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
