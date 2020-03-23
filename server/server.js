@@ -28,7 +28,7 @@ else {
   // static files
   app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
-  app.get('/test', (req, res) => {
+  app.get('/analytics', (req, res) => {
     // add middleware functions
     res.sendStatus(200);
   });

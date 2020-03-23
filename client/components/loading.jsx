@@ -10,12 +10,11 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    fetch('/test')
+    fetch('/analytics')
       .then(response => {
         response.json();
       })
       .then(res => {
-        console.log('response returned');
         console.log(res);
       });
   }
