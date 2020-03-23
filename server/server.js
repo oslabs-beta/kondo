@@ -4,6 +4,8 @@ const app = express();
 const path = require('path');
 const action = require('./controllers/scriptController');
 
+const PORT = 3999;
+
 // determines whether to save a new script or run an existing one in headless mode
 let runMode = process.argv.slice(2)[0];
 
@@ -29,7 +31,7 @@ else switch (runMode) {
     // expect npm start -- run scriptName overrideURL(optional)
     // if scriptName exists, execute runScript with overrideURL
     if (scriptName) {
-      app.listen(3999, () => console.log('kondo connected to server on port 3999'));
+      app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
       action.runScript(scriptName, inputURL);
     }
     // else print syntax explanation
@@ -39,11 +41,16 @@ else switch (runMode) {
     console.log('Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"')
 }
 
-//route handling
-app.get('/index', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.js'));
-})
+// static files
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
-app.use('/', (req, res) => {
+app.get('/analytics', (req, res) => {
+  // add middleware functions
+  res.sendStatus(200);
+});
+
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
-})
+});
+
+module.exports = app;
