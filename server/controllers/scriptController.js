@@ -68,7 +68,6 @@ exports.runScript = async (script, inputURL) => {
   await page.goto(inputURL);
   await page.content();
 
-  
   let json = fs.readFileSync(path.join(__dirname, '../userscripts.json'))
   json = JSON.parse(json);
   // console.log('JSON: ', json);
