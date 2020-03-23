@@ -4,11 +4,17 @@ const path = require('path');
 module.exports = {
   entry: ['./client/index.js'],
   output: {
-    path: path.join(__dirname, './build'),
+    path: path.join(__dirname, './assets'),
     publicPath: '/',
     filename: 'bundle.js',
   },
   mode: process.env.NODE_ENV,
+  devServer: {
+    publicPath: '/assets/',
+    proxy: {
+      '/': 'http://localhost:3000',
+    },
+  },
   module: {
     rules: [
       {
