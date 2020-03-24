@@ -5,7 +5,22 @@ const LineGraph = props => {
   return (
     <div className="lineGraph">
       <Line
-        data={props.lineGraphData}
+        data={{
+          labels: props.labels,
+          datasets: [
+            {
+              label: 'Heap Use Percentage',
+              data: props.data.map(el =>
+                ((el / props.heapSize) * 100).toFixed(2),
+              ),
+              heapUsageTotal: props.data,
+              backgroundColor: 'rgba(75, 192, 192, 1)',
+              borderColor: 'rgba(54, 145, 235, 1)',
+              lineTension: 0,
+              fill: false,
+            },
+          ],
+        }}
         options={{
           title: {
             display: true,
@@ -66,20 +81,24 @@ const LineGraph = props => {
                   ' seconds'
                 );
               },
-              beforeLabel: function(tooltipItem, data) {
+              label: function(tooltipItem, data) {
                 return (
                   'Total Heap Percentage Usage: ' +
                   data.datasets[tooltipItem.datasetIndex].data[
                     tooltipItem.index
-                  ]
+                  ] +
+                  '%'
                 );
               },
-              label: function(tooltipItem, data) {
+              afterLabel: function(tooltipItem, data) {
                 return (
-                  'Total Heap Used (bits): ' +
-                  data.datasets[tooltipItem.datasetIndex].heapUsageTotal[
-                    tooltipItem.index
-                  ]
+                  'Total Heap Used: ' +
+                  (
+                    data.datasets[tooltipItem.datasetIndex].heapUsageTotal[
+                      tooltipItem.index
+                    ] / 1048576
+                  ).toFixed(2) +
+                  ' MB'
                 );
               },
             },

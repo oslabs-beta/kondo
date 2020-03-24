@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 const Loading = () => {
-  const [analysisComplete, setLoadingStatus] = useState(true);
+  const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
+    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/analytics')
       .then(response => {
         response.json();
@@ -13,6 +14,9 @@ const Loading = () => {
         console.log(res);
         // setLoadingStatus(true);
       });
+    return function cleanup() {
+      document.getElementById('body').style.backgroundColor = '';
+    };
   });
 
   const moveRipple = () => {
@@ -38,7 +42,6 @@ const Loading = () => {
   };
 
   if (analysisComplete) {
-    // pass props to wrapper
     return <Redirect to="/analytics" />;
   }
   return (

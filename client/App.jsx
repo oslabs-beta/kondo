@@ -8,8 +8,33 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lineGraphLabels: [],
-      lineGraphData: [],
+      lineGraphLabels: [
+        0,
+        2000,
+        4000,
+        6000,
+        8000,
+        10000,
+        12000,
+        14000,
+        16000,
+        18000,
+        20000,
+      ],
+      lineGraphData: [
+        922568,
+        2710240,
+        2710240,
+        2710240,
+        2925620,
+        2925160,
+        2925748,
+        2926336,
+        2928688,
+        2929276,
+        2929864,
+      ],
+      heapTotalSize: 5017600,
       comparisonGraphLabels: [],
       comparisonGraphData: [],
     };
@@ -24,7 +49,13 @@ class App extends Component {
             <Route
               exact
               path="/analytics"
-              render={() => <Wrapper test="testing" />}
+              render={() => (
+                <Wrapper
+                  lineGraphLabels={this.state.lineGraphLabels}
+                  lineGraphData={this.state.lineGraphData}
+                  heapTotalSize={this.state.heapTotalSize}
+                />
+              )}
             />
           </Switch>
         </main>

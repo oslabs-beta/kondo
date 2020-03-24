@@ -1,11 +1,15 @@
 import React from 'react';
-import Line from './lineGraph';
-import Comparison from './comparisonGraph';
+import LineGraph from './lineGraph';
+// import ComparisonGraph from './comparisonGraph';
 
 const Wrapper = props => {
   return (
     <div id="wrapper">
-      <Line />
+      <LineGraph
+        labels={props.lineGraphLabels}
+        data={props.lineGraphData}
+        heapSize={props.heapTotalSize}
+      />
     </div>
   );
 };
