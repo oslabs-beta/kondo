@@ -23,23 +23,23 @@ const runMode = process.argv.slice(3)[0];
 // else {
 //   CLI.runScript(scripts[runMode], inputURL);
 
-  // ***START SERVER - ROUTE HANDLING***
+// ***START SERVER - ROUTE HANDLING***
 
-  // static files
-  app.use('/assets', express.static(path.join(__dirname, '../assets')));
+// static files
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
-  app.get('/analytics', (req, res) => {
-    // add middleware functions
-    res.sendStatus(200);
-  });
+app.get('/analytics', (req, res) => {
+  // add middleware functions
+  res.sendStatus(200);
+});
 
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
-  });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
 
-  app.listen(PORT, () => {
-    console.log(`kondo listening on port ${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`kondo listening on port ${PORT}`);
+});
 // }
 
 module.exports = app;

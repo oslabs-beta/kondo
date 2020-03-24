@@ -1,101 +1,119 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
+import React from 'react';
+import { Line } from 'react-chartjs-2';
 
 const LineGraph = props => {
   return (
     <div className="lineGraph">
       <Line
-        data={props.lineGraphData}
+        data={{
+          labels: props.labels,
+          datasets: [
+            {
+              label: 'Heap Use Percentage',
+              data: props.data.map(el =>
+                ((el / props.heapSize) * 100).toFixed(2),
+              ),
+              heapUsageTotal: props.data,
+              backgroundColor: 'rgba(75, 192, 192, 1)',
+              borderColor: 'rgba(54, 145, 235, 1)',
+              lineTension: 0,
+              fill: false,
+            },
+          ],
+        }}
         options={{
           title: {
             display: true,
             text: ` Heap Data Analysis`,
-            fontSize: 32
+            fontSize: 32,
           },
           legend: {
             display: false,
-            position: "right",
+            position: 'right',
             labels: {
               borderWidth: 1,
-              fontColor: "black"
-            }
+              fontColor: 'black',
+            },
           },
-          pointStyle: "star",
+          pointStyle: 'star',
           scales: {
             xAxes: [
               {
                 ticks: {
-                  suggestedMax: 60000
+                  suggestedMax: 60000,
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: "Time (ms)",
-                  fontSize: 24
+                  labelString: 'Time (ms)',
+                  fontSize: 24,
                 },
                 gridLines: {
                   display: true,
-                  drawBorder: true
-                }
-              }
+                  drawBorder: true,
+                },
+              },
             ],
             yAxes: [
               {
                 ticks: {
                   suggestedMin: 0,
-                  suggestedMax: 100
+                  suggestedMax: 100,
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: "Memory Used Percentage (%)",
-                  fontSize: 24
+                  labelString: 'Memory Used Percentage (%)',
+                  fontSize: 24,
                 },
                 gridLines: {
                   display: true,
-                  drawBorder: true
-                }
-              }
-            ]
+                  drawBorder: true,
+                },
+              },
+            ],
           },
           tooltips: {
-            mode: "label",
+            mode: 'label',
             callbacks: {
               title: function(tooltipItem, data) {
                 return (
-                  " Total Heap Usage At " +
+                  ' Total Heap Usage At ' +
                   data.labels[tooltipItem[0].index] / 1000 +
-                  " seconds"
-                );
-              },
-              beforeLabel: function(tooltipItem, data) {
-                return (
-                  "Total Heap Percentage Usage: " +
-                  data.datasets[tooltipItem.datasetIndex].data[
-                    tooltipItem.index
-                  ]
+                  ' seconds'
                 );
               },
               label: function(tooltipItem, data) {
                 return (
-                  "Total Heap Used (bits): " +
-                  data.datasets[tooltipItem.datasetIndex].heapUsageTotal[
+                  'Total Heap Percentage Usage: ' +
+                  data.datasets[tooltipItem.datasetIndex].data[
                     tooltipItem.index
-                  ]
+                  ] +
+                  '%'
                 );
-              }
+              },
+              afterLabel: function(tooltipItem, data) {
+                return (
+                  'Total Heap Used: ' +
+                  (
+                    data.datasets[tooltipItem.datasetIndex].heapUsageTotal[
+                      tooltipItem.index
+                    ] / 1048576
+                  ).toFixed(2) +
+                  ' MB'
+                );
+              },
             },
             titleFontSize: 16,
-            bodyFontSize: 16
+            bodyFontSize: 16,
           },
           elements: {
             point: {
-              pointStyle: "rectRounded",
-              radius: 10
-            }
-          }
+              pointStyle: 'rectRounded',
+              radius: 10,
+            },
+          },
         }}
       />
     </div>
   );
 };
-
 export default LineGraph;
