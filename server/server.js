@@ -14,14 +14,14 @@ const inputURL = process.argv.slice(2)[0];
 const runMode = process.argv.slice(3)[0];
 
 // handle input parameters
-if (!inputURL)
-  console.log(
-    'Please provide a URL to connect to e.g. npm start -- http://localhost:3000 <scriptName(optional)>',
-  );
-else if (!runMode) CLI.addScript(inputURL);
-else if (runMode === '?') console.log(Object.keys(scripts));
-else {
-  CLI.runScript(scripts[runMode], inputURL);
+// if (!inputURL)
+//   console.log(
+//     'Please provide a URL to connect to e.g. npm start -- http://localhost:3000 <scriptName(optional)>',
+//   );
+// else if (!runMode) CLI.addScript(inputURL);
+// else if (runMode === '?') console.log(Object.keys(scripts));
+// else {
+//   CLI.runScript(scripts[runMode], inputURL);
 
   // ***START SERVER - ROUTE HANDLING***
 
@@ -40,6 +40,6 @@ else {
   app.listen(PORT, () => {
     console.log(`kondo listening on port ${PORT}`);
   });
-}
+// }
 
 module.exports = app;
