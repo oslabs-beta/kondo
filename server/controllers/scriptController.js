@@ -52,8 +52,10 @@ exports.storeScript = async (name) => {
     fs.appendFile(path.join(__dirname, '../userscripts.js'), newScript, 'utf-8', function(err) {
       if (err) throw err;
       console.log('saved!');
-      process.exit(0);
-    })    
+      // process.exit(0);
+    }) 
+
+  
   })
 }
 
