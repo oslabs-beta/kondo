@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 const Loading = () => {
-  const [analysisComplete, setLoadingStatus] = useState(false);
+  const [analysisComplete, setLoadingStatus] = useState(true);
 
   useEffect(() => {
     document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
