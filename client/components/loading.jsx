@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-class Loading extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      analysisComplete: false,
-    };
-  }
+const Loading = () => {
+  const [analysisComplete, setLoadingStatus] = useState(true);
 
-  componentDidMount() {
+  useEffect(() => {
+    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/analytics')
       .then(response => {
         response.json();
       })
       .then(res => {
         console.log(res);
+        // setLoadingStatus(true);
       });
-  }
+    return function cleanup() {
+      document.getElementById('body').style.backgroundColor = '';
+    };
+  });
 
-  moveRipple = () => {
+  const moveRipple = () => {
     const ripple = document.getElementsByClassName(
       'ball-scale-ripple-multiple',
     )[0];
@@ -36,31 +36,25 @@ class Loading extends Component {
     }
     newRipple.style.left = width.toString() + 'px';
     newRipple.style.top = height.toString() + 'px';
-    newRipple.firstChild.addEventListener(
-      'animationiteration',
-      this.moveRipple,
-    );
+    newRipple.firstChild.addEventListener('animationiteration', moveRipple);
     document.getElementById('pond').appendChild(newRipple);
     ripple.remove();
   };
 
-  render() {
-    if (this.state.analysisComplete) {
-      // pass props to wrapper
-      return <Redirect to="/analytics" />;
-    }
-    return (
-      <div id="pond">
-        <h1>Loading...</h1>
-        <div className="ball-scale-ripple-multiple">
-          <div onAnimationIteration={this.moveRipple} />
-          <div />
-          <div />
-          <div />
-        </div>
-      </div>
-    );
+  if (analysisComplete) {
+    return <Redirect to="/analytics" />;
   }
-}
+  return (
+    <div id="pond">
+      <h1>Loading...</h1>
+      <div className="ball-scale-ripple-multiple">
+        <div onAnimationIteration={moveRipple} />
+        <div />
+        <div />
+        <div />
+      </div>
+    </div>
+  );
+};
 
 export default Loading;
