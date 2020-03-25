@@ -32,6 +32,19 @@ if (!runMode) {
       // expects npm start -- create scriptName URL
       // if scriptName and URL exist, run createScript and write to userscripts.js
       if (scriptName && inputURL) {
+        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
+        createScript(scriptName, inputURL);
+      }
+      // else print syntax explanation
+      else
+        console.log(
+          "Please enter the name of the script you'd like to create followed by the page URL.",
+        );
+      break;
+    case 'run':
+      // expects npm start -- run scriptName
+      if (scriptName) {
+        // **START SERVER/ROUTE HANDLING** //
         app.use(express.json());
 
         // static files
@@ -49,21 +62,10 @@ if (!runMode) {
           res.sendStatus(200);
         });
 
-        app.get('/', (req, res) => {
+        app.get('/*', (req, res) => {
           res.sendFile(path.join(__dirname, '../index.html'));
         });
-        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-        createScript(scriptName, inputURL);
-      }
-      // else print syntax explanation
-      else
-        console.log(
-          "Please enter the name of the script you'd like to create followed by the page URL.",
-        );
-      break;
-    case 'run':
-      // expects npm start -- run scriptName
-      if (scriptName) {
+
         app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
         runScript(scriptName);
       }
