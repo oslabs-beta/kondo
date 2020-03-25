@@ -36,7 +36,7 @@ exports.storeScript = async name => {
   console.log("Please enter the function you'd like to store then hit Ctrl+C");
   rl.prompt();
 
-  rl.on('line', function (line) {
+  rl.on('line', function(line) {
     input.push(line);
   });
 
@@ -45,9 +45,9 @@ exports.storeScript = async name => {
     let url = input[1];
     // pull out the actual URL from between the ('')
     let firstIndex = url.indexOf(`'`);
-    let newString = url.slice(firstIndex + 1);
+    let newString = url.slice(firstIndex+1);
     let secondIndex = newString.indexOf(`'`);
-    url = url.slice(firstIndex, secondIndex + firstIndex);
+    url = url.slice(firstIndex, secondIndex+firstIndex);
     // build answer by making string from input array and then replacing the \n chars with spaces 
     let answer = input.slice(4).join('\n').replace(/\n  /g, '; ');
     // leave the spacing below intact to make sure the file formatting is correct
@@ -57,18 +57,18 @@ exports.storeScript = async name => {
 }
 
 `;
-
-    fs.appendFile(path.join(__dirname, '../userscripts.js'), newScript, 'utf-8', function (err) {
+    
+    fs.appendFile(path.join(__dirname, '../userscripts.js'), newScript, 'utf-8', function(err) {
       if (err) throw err;
       console.log('saved!');
       process.exit(0);
-    })
+    }) 
   })
 }
 
 // RUN THIS AFTER RECORDING PUPPET SCRIPT
 // launch puppeteer headless and open the page provided by the user
-exports.runScript = async (script) => {
+exports.runScript = async (script, inputURL) => {
   console.log('RUN SCRIPT');
   let browser = await puppeteer.launch();
   let context = await browser.createIncognitoBrowserContext();
