@@ -16,7 +16,6 @@ const scriptName = process.argv.slice(3)[0];
 const inputURL = process.argv.slice(4)[0];
 
 // handle input parameters
-<<<<<<< HEAD
 // if (!runMode) {
 //   console.log(
 //     'Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"',
@@ -67,34 +66,5 @@ app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
 //       'Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"',
 //     );
 // }
-=======
-// if (!inputURL)
-//   console.log(
-//     'Please provide a URL to connect to e.g. npm start -- http://localhost:3000 <scriptName(optional)>',
-//   );
-// else if (!runMode) CLI.addScript(inputURL);
-// else if (runMode === '?') console.log(Object.keys(scripts));
-// else {
-//   CLI.runScript(scripts[runMode], inputURL);
-
-  // ***START SERVER - ROUTE HANDLING***//
-
-  // static files
-  app.use('/assets', express.static(path.join(__dirname, '../assets')));
-
-  app.get('/analytics', (req, res) => {
-    // add middleware functions
-    res.sendStatus(200);
-  });
-
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
-  });
-
-  app.listen(PORT, () => {
-    console.log(`kondo listening on port ${PORT}`);
-  });
-//}
->>>>>>> 10149507474d62a39c032f8d855514601ee6028f
 
 module.exports = app;
