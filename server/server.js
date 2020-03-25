@@ -19,6 +19,8 @@ if (process.argv.slice(4)[0]) {
   inputURL = process.argv.slice(4)[0];
 }
 
+app.use(express.json());
+
 // static files
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
