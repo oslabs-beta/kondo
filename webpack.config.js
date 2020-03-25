@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     publicPath: '/assets/',
     proxy: {
-      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3999',
     },
   },
   module: {
@@ -31,14 +31,14 @@ module.exports = {
                     "node": "10"
                   }
                 }
+              ],
+              '@babel/preset-react'
             ],
-            '@babel/preset-react'
-          ],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
         resolve: {
-          extensions: ['.js', '.jsx','.json'],
+          extensions: ['.js', '.jsx', '.json'],
         },
       },
       {
