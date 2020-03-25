@@ -13,12 +13,14 @@ const runMode = process.argv.slice(2)[0];
 // the name of the script to be saved or executed
 const scriptName = process.argv.slice(3)[0];
 
+
 // take the URL to open in Puppeteer from the input script parameter
 let inputURL;
 if (process.argv.slice(4)[0]) {
   inputURL = process.argv.slice(4)[0];
 }
 
+// body parser
 app.use(express.json());
 
 // static files
@@ -27,6 +29,7 @@ app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.post('/code', (req, res) => {
   console.log(req.body.code);
+  extCode[req.body.code] = req.body.code;
   res.status(200).send('OK');
 })
 
