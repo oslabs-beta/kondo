@@ -6,7 +6,6 @@ const action = require('./controllers/scriptController');
 const app = express();
 const PORT = 8000;
 
-
 // determines whether to save a new script or run an existing one in headless mode
 const runMode = process.argv.slice(2)[0];
 
