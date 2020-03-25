@@ -6,6 +6,7 @@ const action = require('./controllers/scriptController');
 
 const PORT = 3999;
 
+
 // determines whether to save a new script or run an existing one in headless mode
 let runMode = process.argv.slice(2)[0];
 
@@ -15,11 +16,15 @@ let scriptName = process.argv.slice(3)[0];
 // take the URL to open in Puppeteer from the input script parameter
 let inputURL = process.argv.slice(4)[0];
 
+app.use(express.json());
+
 // static files
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
+
 app.post('/code', (req, res) => {
-  console.log('REQUEST BODY: ' + req.body);
+  console.log(req.body.code);
+  res.status(200).send('OK');
 })
 
 app.get('/analytics', (req, res) => {
