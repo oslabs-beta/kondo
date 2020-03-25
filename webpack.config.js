@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     publicPath: '/assets/',
     proxy: {
-      '/': 'http://localhost:3999',
+      '/': 'http://localhost:8000',
     },
   },
   module: {
@@ -27,12 +27,12 @@ module.exports = {
               [
                 '@babel/preset-env',
                 {
-                  "targets": {
-                    "node": "10"
-                  }
-                }
+                  targets: {
+                    node: '10',
+                  },
+                },
               ],
-              '@babel/preset-react'
+              '@babel/preset-react',
             ],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
