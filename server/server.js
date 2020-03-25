@@ -1,29 +1,29 @@
 #!/usr/bin/env node
 const express = require('express');
-const app = express();
 const path = require('path');
 const action = require('./controllers/scriptController');
 
-const PORT = 3999;
+const app = express();
+const PORT = 8000;
 
 // determines whether to save a new script or run an existing one in headless mode
-let runMode = process.argv.slice(2)[0];
+const runMode = process.argv.slice(2)[0];
 
 // the name of the script to be saved or executed
-let scriptName = process.argv.slice(3)[0];
+const scriptName = process.argv.slice(3)[0];
 
 // take the URL to open in Puppeteer from the input script parameter
 let inputURL;
 if (process.argv.slice(4)[0]) {
   inputURL = process.argv.slice(4)[0];
 }
-
+ 
 // static files
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.post('/code', (req, res) => {
   console.log('REQUEST BODY: ' + req.body);
-})
+});
 
 app.get('/analytics', (req, res) => {
   // add middleware functions
