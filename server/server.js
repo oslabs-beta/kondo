@@ -13,7 +13,10 @@ let runMode = process.argv.slice(2)[0];
 let scriptName = process.argv.slice(3)[0];
 
 // take the URL to open in Puppeteer from the input script parameter
-let inputURL = process.argv.slice(4)[0];
+let inputURL;
+if (process.argv.slice(4)[0]) {
+  inputURL = process.argv.slice(4)[0];
+}
 
 // static files
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
@@ -37,7 +40,7 @@ if (!runMode) {
 }
 else switch (runMode) {
   case 'create':
-    // expect npm start -- create scriptName URL
+    // expects npm start -- create scriptName URL
     // if scriptName and URL exist, run createScript and write to userscripts.js
     if (scriptName && inputURL) {
       app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
@@ -47,11 +50,10 @@ else switch (runMode) {
     else console.log("Please enter the name of the script you'd like to create followed by the page URL.")
     break;
   case 'run':
-    // expect npm start -- run scriptName overrideURL(optional)
-    // if scriptName exists, execute runScript with overrideURL
+    // expects npm start -- run scriptName
     if (scriptName) {
       app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-      action.runScript(scriptName, inputURL);
+      action.runScript(scriptName);
     }
     // else print syntax explanation
     else console.log("Please enter the name of the script you'd like to run")
