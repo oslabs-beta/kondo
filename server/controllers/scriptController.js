@@ -3,7 +3,7 @@ const fs = require('fs');
 const readline = require('readline');
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 const path = require('path');
 const scripts = require('../userscripts.js');
@@ -16,29 +16,29 @@ exports.createScript = async (name, inputURL) => {
   } else {
     const pathToExtension = require('path').join(__dirname, '../../extension');
     const browser = await puppeteer.launch({
-    headless: false,
-    args: [
-      `--disable-extensions-except=${pathToExtension}`,
-      `--load-extension=${pathToExtension}`
-    ]
+      headless: false,
+      args: [
+        `--disable-extensions-except=${pathToExtension}`,
+        `--load-extension=${pathToExtension}`,
+      ],
     });
-    const page = await browser.newPage();
+    const page = (await browser.pages())[0];
     await page.goto(inputURL);
     await page.content();
     exports.storeScript(name);
   }
-}
+};
 
 // TAKE USER INPUT AND WRITE TO SCRIPT FILE
-exports.storeScript = async (name) => {
-  let input = [];
+exports.storeScript = async name => {
+  const input = [];
 
-  console.log('Please enter the function you\'d like to store then hit Ctrl+C');
+  console.log("Please enter the function you'd like to store then hit Ctrl+C");
   rl.prompt();
 
-  rl.on('line', function (line) {
-      input.push(line);
-  })
+  rl.on('line', function(line) {
+    input.push(line);
+  });
 
   rl.on('close', function (cmd) {
     // pull out the first line which contains the URL
@@ -68,12 +68,10 @@ exports.storeScript = async (name) => {
 
 // RUN THIS AFTER RECORDING PUPPET SCRIPT
 // launch puppeteer headless and open the page provided by the user
-exports.runScript = async (script) => {
-  
+exports.runScript = async (script, inputURL) => {
   console.log('RUN SCRIPT');
   let browser = await puppeteer.launch();
-  let context = await browser
-      .createIncognitoBrowserContext();
+  let context = await browser.createIncognitoBrowserContext();
   let page = await context.newPage();
   await page.goto(scripts[script].url);
   await page.content();
@@ -86,10 +84,10 @@ exports.runScript = async (script) => {
       scripts[script].func();
       count++;
     }
-  } catch(err) {
-      console.log('ERROR: ', err);
-  }  
+  } catch (err) {
+    console.log('ERROR: ', err);
+  }
   // context.close();
   browser.close();
   process.exit(0);
-}
+};

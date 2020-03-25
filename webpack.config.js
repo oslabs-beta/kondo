@@ -27,12 +27,21 @@ module.exports = {
               [
                 '@babel/preset-env',
                 {
+<<<<<<< HEAD
                   "targets": {
                     "node": "10"
                   }
                 }
               ],
               '@babel/preset-react'
+=======
+                  targets: {
+                    node: '10',
+                  },
+                },
+              ],
+              '@babel/preset-react',
+>>>>>>> a5c2ce67321fab5c637d0d87f148eb71f86a49ae
             ],
             plugins: ['@babel/plugin-proposal-class-properties'],
           },
