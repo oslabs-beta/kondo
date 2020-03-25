@@ -9,7 +9,7 @@ const path = require('path');
 const scripts = require('../userscripts.js');
 
 // RUN THIS TO RECORD USER ACTIONS FROM BROWSER AND CREATE PUPPET SCRIPT
-exports.createScript = async (name, inputURL) => {
+const createScript = async (name, inputURL) => {
   if (scripts[name]) {
     console.log('That script name already exists. Please try a new one.');
     process.exit(0);
@@ -25,12 +25,12 @@ exports.createScript = async (name, inputURL) => {
     const page = (await browser.pages())[0];
     await page.goto(inputURL);
     await page.content();
-    exports.storeScript(name);
+    storeScript(name);
   }
 };
 
 // TAKE USER INPUT AND WRITE TO SCRIPT FILE
-exports.storeScript = async name => {
+const storeScript = async name => {
   const input = [];
 
   console.log("Please enter the function you'd like to store then hit Ctrl+C");
@@ -41,6 +41,7 @@ exports.storeScript = async name => {
   });
 
   rl.on('close', function (cmd) {
+    console.log(input);
     // pull out the first line which contains the URL
     let url = input[1];
     // pull out the actual URL from between the ('')
@@ -68,7 +69,7 @@ exports.storeScript = async name => {
 
 // RUN THIS AFTER RECORDING PUPPET SCRIPT
 // launch puppeteer headless and open the page provided by the user
-exports.runScript = async (script, inputURL) => {
+const runScript = async (script, inputURL) => {
   console.log('RUN SCRIPT');
   let browser = await puppeteer.launch();
   let context = await browser.createIncognitoBrowserContext();
@@ -91,3 +92,7 @@ exports.runScript = async (script, inputURL) => {
   browser.close();
   process.exit(0);
 };
+
+module.exports = {
+  createScript, runScript, rl
+}

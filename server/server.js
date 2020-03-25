@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 const express = require('express');
 const path = require('path');
-const action = require('./controllers/scriptController');
-
+const { createScript, runScript, rl } = require('./controllers/scriptController');
 const app = express();
 const PORT = 8000;
 
@@ -24,7 +23,9 @@ app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.post('/code', (req, res) => {
-  console.log(req.body.code);
+  // console.log(req.body.code);
+  rl.write(req.body.code);
+  rl.write(`\n`, { ctrl: true, name: 'c' });
   res.status(200).send('OK');
 })
 
@@ -47,7 +48,7 @@ else switch (runMode) {
     // if scriptName and URL exist, run createScript and write to userscripts.js
     if (scriptName && inputURL) {
       app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-      action.createScript(scriptName, inputURL);
+      createScript(scriptName, inputURL);
     }
     // else print syntax explanation
     else console.log("Please enter the name of the script you'd like to create followed by the page URL.")
@@ -56,7 +57,7 @@ else switch (runMode) {
     // expects npm start -- run scriptName
     if (scriptName) {
       app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-      action.runScript(scriptName);
+      runScript(scriptName);
     }
     // else print syntax explanation
     else console.log("Please enter the name of the script you'd like to run")
