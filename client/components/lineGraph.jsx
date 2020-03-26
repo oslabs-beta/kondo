@@ -56,8 +56,8 @@ const LineGraph = props => {
             yAxes: [
               {
                 ticks: {
-                  suggestedMin: 0,
-                  suggestedMax: 100,
+                  suggestedMin: 40,
+                  suggestedMax: 60,
                 },
                 scaleLabel: {
                   display: true,

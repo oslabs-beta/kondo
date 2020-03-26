@@ -32,6 +32,7 @@ if (!runMode) {
       // if scriptName and URL exist, run createScript and write to userscripts.js
       if (scriptName && inputURL) {
         // START SERVER
+        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
         createScript(scriptName, inputURL);
       }
       // else print syntax explanation
@@ -72,7 +73,7 @@ app.post('/code', (req, res) => {
     .replace(/\)\n/g, ');');
   let newScript = `exports.${scriptName} = { 
     url: '${inputURL}',
-    func: async () => {${newString}  } 
+    func: async (page) => {${newString}  } 
   }
     
   `;
@@ -96,6 +97,7 @@ app.post('/code', (req, res) => {
 app.get('/data', getData, (req, res) => {
   console.log('last fxn');
   res.json(res.locals);
+  process.exit(0);
 });
 
 app.get('/', (req, res) => {

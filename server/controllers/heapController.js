@@ -6,7 +6,7 @@ const script = process.argv.slice(3)[0];
 
 const getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
-  const browser = await puppeteer.launch({ headless: false, devtools: true });
+  const browser = await puppeteer.launch({ headless: true, devtools: true });
   const page = (await browser.pages())[0];
   // await page.goto(scripts[script].url);
   const client = await page.target().createCDPSession();
@@ -34,6 +34,12 @@ const getData = async (req, res, next) => {
       snap += chunk;
     });
 
+    let i = 0;
+    while (i < 2) {
+      await scripts[script].func(page);
+      i += 1;
+    }
+
     // collect initial heap usage data
     let runtime = await client.send('Runtime.getHeapUsage');
     heapUsage.push(runtime.usedSize);
@@ -44,11 +50,6 @@ const getData = async (req, res, next) => {
       return new Promise(resolve => {
         console.log('collecting data');
         const interval = setInterval(async () => {
-          // await client.send('Input.dispatchMouseEvent', {
-          //   type: 'mouseReleased',
-          //   x: 30,
-          //   y: 15,
-          // });
           runtime = await client.send('Runtime.getHeapUsage');
           heapUsage.push(runtime.usedSize);
           ms += 2000;
@@ -69,7 +70,7 @@ const getData = async (req, res, next) => {
             console.log('completed data collection');
             resolve();
           }
-        }, 1000);
+        }, 2000);
       });
     }
 
@@ -107,7 +108,6 @@ const getData = async (req, res, next) => {
           },
           values: [],
         };
-        console.log('growing: ', growing);
         for (let growingNode of growing) {
           try {
             // get node description

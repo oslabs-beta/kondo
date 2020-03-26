@@ -23,7 +23,7 @@ const createScript = async (name, inputURL) => {
 
 // RUN THIS AFTER RECORDING PUPPET SCRIPT
 // launch puppeteer headless and open the page provided by the user
-const runScript = async (script) => {
+const runScript = async script => {
   console.log('RUN SCRIPT');
   let browser = await puppeteer.launch();
   let context = await browser.createIncognitoBrowserContext();
@@ -36,7 +36,7 @@ const runScript = async (script) => {
   try {
     while (count < 7) {
       // Do something a couple of times. (insert recorded puppeteer scripts here)
-      scripts[script].func();
+      scripts[script].func(page);
       count++;
     }
   } catch (err) {
@@ -47,5 +47,6 @@ const runScript = async (script) => {
 };
 
 module.exports = {
-  createScript, runScript
-}
+  createScript,
+  runScript,
+};
