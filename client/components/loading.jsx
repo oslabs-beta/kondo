@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const Loading = () => {
-  const [analysisComplete, setLoadingStatus] = useState(true);
+const Loading = props => {
+  const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
-    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
-    fetch('/analytics')
-      .then(response => {
-        response.json();
-      })
-      .then(res => {
-        console.log(res);
-        // setLoadingStatus(true);
+    // document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
+    fetch('/data')
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.memoryLeaks);
+        props.updateState(data);
+        setLoadingStatus(true);
       });
-    return function cleanup() {
-      document.getElementById('body').style.backgroundColor = '';
-    };
+    // return function cleanup() {
+    //   document.getElementById('body').style.backgroundColor = '';
+    // };
   });
 
   const moveRipple = () => {
