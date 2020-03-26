@@ -94,7 +94,7 @@ app.post('/code', (req, res) => {
 });
 
 app.get('/data', getData, (req, res) => {
-  res.json(res.locals);
+  res.status(200).json(res.locals);
 });
 
 app.get('/', (req, res) => {

@@ -42,6 +42,7 @@ const getData = async (req, res, next) => {
     // collect data every 1000ms for 7 intervals
     function collect() {
       return new Promise(resolve => {
+        console.log('collecting data');
         const interval = setInterval(async () => {
           // await client.send('Input.dispatchMouseEvent', {
           //   type: 'mouseReleased',
@@ -65,6 +66,7 @@ const getData = async (req, res, next) => {
               heapUsage: heapUsage,
               totalHeapSize: runtime.totalSize,
             };
+            console.log('completed data collection');
             resolve();
           }
         }, 2000);
@@ -74,6 +76,7 @@ const getData = async (req, res, next) => {
     // analyze data collected
     function analyze() {
       return new Promise(async resolve => {
+        console.log('analyzing data');
         // set initial growth status of nodes in snapshot 1 to true
         // set intial growth status of nodes in all other snapshots to false
         for (let i = 0; i < snapshots.length; i++) {
@@ -88,7 +91,9 @@ const getData = async (req, res, next) => {
         }
 
         // filter growing nodes
+        console.log('findGrowing');
         const growing = findGrowing(snapshots[snapshots.length - 1]);
+        console.log('findGrowing completed');
         res.locals.memoryLeaks = {
           labels: [],
           data: {
@@ -102,7 +107,7 @@ const getData = async (req, res, next) => {
           },
           values: [],
         };
-
+        console.log('growing: ', growing);
         for (let growingNode of growing) {
           try {
             // get node description
@@ -205,6 +210,7 @@ const getData = async (req, res, next) => {
 
     await collect();
     await analyze();
+    console.log(res.locals);
 
     // close CDP domains and puppeteer browser
     await client.send('HeapProfiler.stopTrackingHeapObjects');

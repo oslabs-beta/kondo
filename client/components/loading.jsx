@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-const Loading = () => {
+const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
     document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/data')
-      .then(res => res.json())
+      .then(res => {
+        console.log('response received');
+        res.json();
+      })
       .then(data => {
-        console.log(data);
+        console.log(data.memoryLeaks);
+        props.updateState(data);
         setLoadingStatus(true);
       });
     return function cleanup() {
