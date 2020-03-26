@@ -22,39 +22,40 @@ if (process.argv.slice(4)[0]) {
 }
 
 // handle input parameters
-console.log(
-  'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
-);
+if (!runMode) {
+  console.log(
+    'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
+  );
 } else
-switch (runMode) {
-  case 'create':
-    // expects npm start -- create scriptName URL
-    // if scriptName and URL exist, run createScript and write to userscripts.js
-    if (scriptName && inputURL) {
-      // START SERVER
-      app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-      createScript(scriptName, inputURL);
-    }
-    // else print syntax explanation
-    else
+  switch (runMode) {
+    case 'create':
+      // expects npm start -- create scriptName URL
+      // if scriptName and URL exist, run createScript and write to userscripts.js
+      if (scriptName && inputURL) {
+        // START SERVER
+        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
+        createScript(scriptName, inputURL);
+      }
+      // else print syntax explanation
+      else
+        console.log(
+          "Please enter the name of the script you'd like to create followed by the page URL.",
+        );
+      break;
+    case 'run':
+      // expects npm start -- run scriptName
+      if (scriptName) {
+        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
+        // runScript(scriptName);
+      }
+      // else print syntax explanation
+      else console.log("Please enter the name of the script you'd like to run");
+      break;
+    default:
       console.log(
-        "Please enter the name of the script you'd like to create followed by the page URL.",
+        'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
       );
-    break;
-  case 'run':
-    // expects npm start -- run scriptName
-    if (scriptName) {
-      app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-      // runScript(scriptName);
-    }
-    // else print syntax explanation
-    else console.log("Please enter the name of the script you'd like to run");
-    break;
-  default:
-    console.log(
-      'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
-    );
-}
+  }
 
 // *** SERVER ROUTES *** //
 app.use(express.json());
