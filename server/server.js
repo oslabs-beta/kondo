@@ -20,6 +20,42 @@ if (process.argv.slice(4)[0]) {
   inputURL = process.argv.slice(4)[0];
 }
 
+// handle input parameters
+if (!runMode) {
+  console.log(
+    'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
+  );
+} else
+  switch (runMode) {
+    case 'create':
+      // expects npm start -- create scriptName URL
+      // if scriptName and URL exist, run createScript and write to userscripts.js
+      if (scriptName && inputURL) {
+        // START SERVER
+        createScript(scriptName, inputURL);
+      }
+      // else print syntax explanation
+      else
+        console.log(
+          "Please enter the name of the script you'd like to create followed by the page URL.",
+        );
+      break;
+    case 'run':
+      // expects npm start -- run scriptName
+      if (scriptName) {
+        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
+        // runScript(scriptName);
+      }
+      // else print syntax explanation
+      else console.log("Please enter the name of the script you'd like to run");
+      break;
+    default:
+      console.log(
+        'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
+      );
+  }
+
+// *** SERVER ROUTES *** //
 app.use(express.json());
 
 // static files
@@ -35,11 +71,11 @@ app.post('/code', (req, res) => {
     .slice(newString.indexOf(`)`) + 3)
     .replace(/\)\n/g, ');');
   let newScript = `exports.${scriptName} = { 
-  url: '${inputURL}',
-  func: async () => {${newString}  } 
-}
-  
-`;
+    url: '${inputURL}',
+    func: async () => {${newString}  } 
+  }
+    
+  `;
   fs.appendFile(
     path.join(__dirname, './userscripts.js'),
     newScript,
@@ -57,48 +93,10 @@ app.post('/code', (req, res) => {
   );
 });
 
-app.get('/analytics', (req, res) => {
-  // add middleware functions
-  res.sendStatus(200);
+app.get('/data', getData, (req, res) => {
+  res.json(res.locals);
 });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
-
-// handle input parameters
-if (!runMode) {
-  console.log(
-    'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
-  );
-} else
-  switch (runMode) {
-    case 'create':
-      // expects npm start -- create scriptName URL
-      // if scriptName and URL exist, run createScript and write to userscripts.js
-      if (scriptName && inputURL) {
-        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-        createScript(scriptName, inputURL);
-      }
-      // else print syntax explanation
-      else
-        console.log(
-          "Please enter the name of the script you'd like to create followed by the page URL.",
-        );
-      break;
-    case 'run':
-      // expects npm start -- run scriptName
-      if (scriptName) {
-        app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-        runScript(scriptName);
-      }
-      // else print syntax explanation
-      else console.log("Please enter the name of the script you'd like to run");
-      break;
-    default:
-      console.log(
-        'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
-      );
-  }
-
-module.exports = app;

@@ -38,6 +38,16 @@ class App extends Component {
       comparisonGraphLabels: [],
       comparisonGraphData: [],
     };
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState(data) {
+    const newState = {
+      lineGraphLabels: data.heapUsageOverTime.time,
+      lineGraphData: data.heapUsageOverTime.heapUsage,
+      heapTotalSize: data.heapUsageOverTime.totalHeapSize,
+    };
+    this.setState(newState);
   }
 
   render() {
