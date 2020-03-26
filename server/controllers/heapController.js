@@ -57,9 +57,6 @@ const getData = async (req, res, next) => {
               heapUsage: heapUsage,
               totalHeapSize: runtime.totalSize,
             };
-            res.locals.memoryLeaks = {
-              snapshots: snapshots,
-            };
             resolve();
           }
         }, 1000);
@@ -85,12 +82,59 @@ const getData = async (req, res, next) => {
 
         // filter growing nodes
         const growing = findGrowing(snapshots[snapshots.length - 1]);
-        for (let node of growing){
+        res.locals.memoryLeaks = {
+          labels:[],
+          data: {
+            snapshot0: [],
+            snapshot1: [],
+            snapshot2: [],
+            snapshot3: [],
+            snapshot4: [],
+            snapshot5: [],
+            snapshot6: []
+          },
+          values: [],
+        }
+
+        for (let growingNode of growing){
           try {
+            // get node description
             const nodeDescription = await client.send(
-              "HeapProfiler.getObjectByHeapObjectId", {objectId: node.id.toString()}
+              "HeapProfiler.getObjectByHeapObjectId", {objectId: growingNode.id.toString()}
             )
-          
+            res.locals.memoryLeaks.labels.push(nodeDescription.description);
+
+            // get properties of node
+            const nodeProperties = await client.send("Runtime.getProperties",
+              {objectId: nodeDescription.result.objectId}
+            )
+            for (let property of nodeProperties.result){
+              if (isOwn){
+                res.locals.memoryLeaks.values.push({
+                  name: property.name,
+                  type: property.value.type,
+                  value: property.value.value.toString().slice(0, Math.min(property.value.value.toString.length, 20))
+                })
+              }
+            }
+
+            // get edge deltas for snapshots
+            for (let i = 0; i < snapshots.length; i++){
+              for(let node of snapshots[i]){
+                if (node.id === growingNode.id){
+                  if (i === 0){
+                    res.locals.memoryLeaks.data[`snapshot${i}`].push(node[edge_count]);
+                  } else {
+                    res.locals.memoryLeaks.data[`snapshot${i}`].push(
+                      node[edge_count]-res.locals.memoryLeaks.data[`snapshot${i-1}`]
+                    );
+                  }
+                  break;
+                }
+              }
+            }
+            
+
           } catch (err){}
         }
 
@@ -144,15 +188,19 @@ const getData = async (req, res, next) => {
       return growing;
     };
 
-    async function functionName() {
-      await collect();
-      console.log('collect completed');
-      await analyze();
-    }
+    await collect();
+    console.log('collect completed');
+    await analyze();
+    console.log('analyze completed');
 
-    functionName();
-    next();
   });
+
+  await client.send('HeapProfiler.stopTrackingHeapObjects');
+  await client.send('Runtime.disable');
+  await client.send('HeapProfiler.disable');
+  await client.send('Page.disable');
+  await browser.close();
+
 };
 
 module.exports = { getData };
