@@ -1,14 +1,12 @@
 const puppeteer = require('puppeteer');
 const parser = require('heapsnapshot-parser');
 
-const heapController = {};
-
-heapController.getData = async (req, res, next) => {
+const getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
   const browser = await puppeteer.launch({ headless: false, devtools: true });
   const page = (await browser.pages())[0];
   const client = await page.target().createCDPSession();
-  await client.send('Page.navigate', { url: inputURL });
+  await client.send('Page.navigate', { url: 'http://localhost:8080' });
 
   // enable CDP domains necessary for data collection
   await client.send('Page.enable');
@@ -17,7 +15,8 @@ heapController.getData = async (req, res, next) => {
   await client.send('HeapProfiler.startTrackingHeapObjects');
 
   // wait for page to load before running code
-  client.on('Page.loadEventFired', async () => {
+  client.on('Page.loadEventFired', async ({ timestamp }) => {
+    console.log('page loaded at ', timestamp);
     // variables for data collection
     let snap = '';
     const snapshots = [];
@@ -53,6 +52,14 @@ heapController.getData = async (req, res, next) => {
           // break after 7 intervals
           if (count > 7) {
             clearInterval(interval);
+            res.locals.heapUsageOverTime = {
+              time: time,
+              heapUsage: heapUsage,
+              totalHeapSize: runtime.totalSize,
+            };
+            res.locals.memoryLeaks = {
+              snapshots: snapshots,
+            };
             resolve();
           }
         }, 1000);
@@ -70,22 +77,58 @@ heapController.getData = async (req, res, next) => {
             else node.growing = false;
           }
         }
+
+        // compare each snapshot to previous snapshot and update growth status of nodes
+        for (let i = 0; i < snapshots.length - 1; i++) {
+          updateGrowthStatus(snapshots[i][0], snapshots[i + 1][0]);
+        }
       });
     }
+    const updateGrowthStatus = function(root1, root2) {
+      // using a breadth-first traversal, trace the shortest path to each node by edges
+      const heapgraph1 = [root1];
+      const heapgraph2 = [root2];
+      const visit = new Set();
+      visit.add(root1.id);
+
+      while (heapgraph1.length > 0) {
+        const node1 = heapgraph1.shift();
+        const node2 = heapgraph2.shift();
+
+        // if a node was previously marked as growing and the number of edges increased
+        // from the previous snapshot, mark the node as growing
+        if (
+          node1.growing === true &&
+          node1.references.length < node2.references.length
+        ) {
+          node2.growing = true;
+        }
+
+        // add nodes referenced out by the edges of the current node (breadth-first traversal) if
+        // they follow same paths from the previous snapshot's heapgraph
+        for (let i = 0; i < node1.references.length; i++) {
+          const edge1 = node1.references[i];
+          const edge2 = node2.references[i];
+          if (
+            edge1.name === edge2.name &&
+            edge1.toNode.id === edge2.toNode.id &&
+            !visit.has(edge1.toNode.id)
+          ) {
+            heapgraph1.push(edge1.toNode);
+            heapgraph2.push(edge2.toNode);
+            visit.add(edge1.toNode.id);
+          }
+        }
+      }
+    };
 
     async function functionName() {
       await collect();
-      res.locals.heapUsageOverTime = {
-        time: time,
-        heapUsage: heapUsage,
-        totalHeapSize: runtime.totalSize,
-      };
-      res.locals.memoryLeaks = {
-        snapshots: snapshots,
-      };
     }
 
     functionName();
     next();
   });
 };
+
+module.exports = { getData };
