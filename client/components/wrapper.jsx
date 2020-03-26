@@ -1,6 +1,6 @@
 import React from 'react';
 import LineGraph from './lineGraph';
-// import ComparisonGraph from './comparisonGraph';
+import BarGraph from './barGraph';
 
 const Wrapper = props => {
   return (
@@ -9,6 +9,11 @@ const Wrapper = props => {
         labels={props.lineGraphLabels}
         data={props.lineGraphData}
         heapSize={props.heapTotalSize}
+      />
+      <BarGraph
+        labels={props.barGraphLabels}
+        data={props.barGraphData}
+        details={props.barGraphDetails}
       />
     </div>
   );

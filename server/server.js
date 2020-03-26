@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 const express = require('express');
 const path = require('path');
-const action = require('./controllers/scriptController');
+const fs = require('fs');
+const { createScript, runScript } = require('./controllers/scriptController');
+const { getData } = require('./controllers/heapController');
 
 const app = express();
 const PORT = 8000;
@@ -13,21 +15,25 @@ const runMode = process.argv.slice(2)[0];
 const scriptName = process.argv.slice(3)[0];
 
 // take the URL to open in Puppeteer from the input script parameter
-const inputURL = process.argv.slice(4)[0];
+let inputURL;
+if (process.argv.slice(4)[0]) {
+  inputURL = process.argv.slice(4)[0];
+}
 
 // handle input parameters
 if (!runMode) {
   console.log(
-    'Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"',
+    'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
   );
 } else
   switch (runMode) {
     case 'create':
-      // expect npm start -- create scriptName URL
+      // expects npm start -- create scriptName URL
       // if scriptName and URL exist, run createScript and write to userscripts.js
       if (scriptName && inputURL) {
+        // START SERVER
         app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-        action.createScript(scriptName, inputURL);
+        createScript(scriptName, inputURL);
       }
       // else print syntax explanation
       else
@@ -36,35 +42,64 @@ if (!runMode) {
         );
       break;
     case 'run':
-      // expect npm start -- run scriptName overrideURL(optional)
-      // if scriptName exists, execute runScript with overrideURL
+      // expects npm start -- run scriptName
       if (scriptName) {
-        // static files
-        app.use('/assets', express.static(path.join(__dirname, '../assets')));
-
-        app.post('/code', (req, res) => {
-          console.log('REQUEST BODY: ' + req.body);
-        });
-
-        app.get('/analytics', (req, res) => {
-          // add middleware functions
-          res.sendStatus(200);
-        });
-
-        app.get('/', (req, res) => {
-          res.sendFile(path.join(__dirname, '../index.html'));
-        });
-
         app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
-        action.runScript(scriptName, inputURL);
+        // runScript(scriptName);
       }
       // else print syntax explanation
       else console.log("Please enter the name of the script you'd like to run");
       break;
     default:
       console.log(
-        'Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"',
+        'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
       );
   }
 
-module.exports = app;
+// *** SERVER ROUTES *** //
+app.use(express.json());
+
+// static files
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
+
+app.post('/code', (req, res) => {
+  // sanitize the puppeteer script sent from the chrome extension
+  let input = req.body.code;
+  // remove the first two lines containing the URL and viewport information
+  let newString = input.slice(input.indexOf(`)`) + 1);
+  // replace blank lines with semi-colons
+  newString = newString
+    .slice(newString.indexOf(`)`) + 3)
+    .replace(/\)\n/g, ');');
+  let newScript = `exports.${scriptName} = { 
+    url: '${inputURL}',
+    func: async (page) => {${newString}  } 
+  }
+    
+  `;
+  fs.appendFile(
+    path.join(__dirname, './userscripts.js'),
+    newScript,
+    'utf-8',
+    function(err) {
+      if (err) throw err;
+      console.log(
+        'Saved successfully! You can run this test by entering "npm start -- run ' +
+          scriptName +
+          '"',
+      );
+      res.status(200).send('OK');
+      process.exit(0);
+    },
+  );
+});
+
+app.get('/data', getData, (req, res) => {
+  console.log('last fxn');
+  res.json(res.locals);
+  process.exit(0);
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
