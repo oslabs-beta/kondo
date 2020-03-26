@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const express = require('express');
 const path = require('path');
-const { createScript, runScript, rl } = require('./controllers/scriptController');
+const fs = require('fs');
+const { createScript, runScript } = require('./controllers/scriptController');
 const app = express();
 const PORT = 8000;
 
@@ -23,9 +24,28 @@ app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.post('/code', (req, res) => {
-  // console.log(req.body.code);
-  rl.write(req.body.code);
-  rl.write(`\n`, { ctrl: true, name: 'c' });
+  // sanitize the puppeteer script sent from the chrome extension
+  let input = req.body.code;
+  // remove the first two lines containing the URL and viewport information
+  let firstIndex = input.indexOf(`)`);
+  let newString = input.slice(firstIndex+1);
+  let secondIndex = newString.indexOf(`)`);
+  let modInput = newString.slice(secondIndex+3);
+  // replace the blank lines with semi-colons
+  modInput = modInput.replace(/\n/g, ';');
+  let newScript = `exports.${scriptName} = { 
+  url: '${inputURL}',
+  func: async () => {${modInput}} 
+}
+  
+`;
+      
+  fs.appendFile(path.join(__dirname, './userscripts.js'), newScript, 'utf-8', function(err) {
+    if (err) throw err;
+    console.log('Saved successfully! You can run this test by entering "npm start -- run ' + scriptName + '"');
+    process.exit(0);
+  }) 
+
   res.status(200).send('OK');
 })
 
@@ -40,7 +60,7 @@ app.get('/', (req, res) => {
 
 // handle input parameters
 if (!runMode) {
-  console.log('Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"');
+  console.log('Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.');
 }
 else switch (runMode) {
   case 'create':
@@ -63,7 +83,7 @@ else switch (runMode) {
     else console.log("Please enter the name of the script you'd like to run")
     break;
   default:
-    console.log('Please enter "create" to make a new script or "run" to execute an existing one e.g. "npm start -- create/run scriptName url"')
+    console.log('Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.')
 }
 
 module.exports = app;
