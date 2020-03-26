@@ -82,6 +82,18 @@ const getData = async (req, res, next) => {
         for (let i = 0; i < snapshots.length - 1; i++) {
           updateGrowthStatus(snapshots[i][0], snapshots[i + 1][0]);
         }
+
+        // filter growing nodes
+        const growing = findGrowing(snapshots[snapshots.length - 1]);
+        for (let node of growing){
+          try {
+            const nodeDescription = await client.send(
+              "HeapProfiler.getObjectByHeapObjectId", {objectId: node.id.toString()}
+            )
+          
+          } catch (err){}
+        }
+
       });
     }
     const updateGrowthStatus = function(root1, root2) {
@@ -122,8 +134,20 @@ const getData = async (req, res, next) => {
       }
     };
 
+    const findGrowing = function(arr) {
+      const growing = [];
+      for (let node of arr) {
+        if (node.growing) {
+          growing.push(node);
+        }
+      }
+      return growing;
+    };
+
     async function functionName() {
       await collect();
+      console.log('collect completed');
+      await analyze();
     }
 
     functionName();
