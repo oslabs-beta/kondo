@@ -69,7 +69,7 @@ const getData = async (req, res, next) => {
             console.log('completed data collection');
             resolve();
           }
-        }, 2000);
+        }, 1000);
       });
     }
 

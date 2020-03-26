@@ -94,7 +94,8 @@ app.post('/code', (req, res) => {
 });
 
 app.get('/data', getData, (req, res) => {
-  res.status(200).json(res.locals);
+  console.log('last fxn');
+  res.json(res.locals);
 });
 
 app.get('/', (req, res) => {

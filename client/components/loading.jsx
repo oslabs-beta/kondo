@@ -7,10 +7,7 @@ const Loading = props => {
   useEffect(() => {
     document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/data')
-      .then(res => {
-        console.log('response received');
-        res.json();
-      })
+      .then(res => res.json())
       .then(data => {
         console.log(data.memoryLeaks);
         props.updateState(data);
