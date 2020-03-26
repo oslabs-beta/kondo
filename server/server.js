@@ -25,25 +25,26 @@ app.use(express.json());
 // static files
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
+// post request for newly created user script
 app.post('/code', (req, res) => {
   // sanitize the puppeteer script sent from the chrome extension
   let input = req.body.code;
   // remove the first two lines containing the URL and viewport information
-  let newString = input.slice(input.indexOf(`)`)+1);
+  let newString = input.slice(input.indexOf(`)`) + 1);
   // replace blank lines with semi-colons
-  newString = newString.slice(newString.indexOf(`)`)+3).replace(/\)\n/g, '\);');
+  newString = newString.slice(newString.indexOf(`)`) + 3).replace(/\)\n/g, '\);');
   let newScript = `exports.${scriptName} = { 
   url: '${inputURL}',
   func: async () => {${newString}  } 
 }
   
-`;    
-  fs.appendFile(path.join(__dirname, './userscripts.js'), newScript, 'utf-8', function(err) {
+`;
+  fs.appendFile(path.join(__dirname, './userscripts.js'), newScript, 'utf-8', function (err) {
     if (err) throw err;
     console.log('Saved successfully! You can run this test by entering "npm start -- run ' + scriptName + '"');
     res.status(200).send('OK');
     process.exit(0);
-  }) 
+  })
 })
 
 app.get('/analytics', (req, res) => {
