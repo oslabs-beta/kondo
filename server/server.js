@@ -12,8 +12,9 @@ const scriptName = process.argv[3];
 
 // take the URL to open in Puppeteer from the input script parameter
 let inputURL;
-if (process.argv[4])
+if (process.argv[4]) {
   inputURL = process.argv[4];
+}
 
 // handle input parameters
 if (!runMode) {
@@ -32,6 +33,18 @@ if (!runMode) {
       process.exit(0);
     }
   }
+
+// *** ERROR HANDLING *** //
+function logErrors (err, req, res, next) {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr);
+  console.log(errorObj.log);
+  res.status(errorObj.status).json(errorObj.message);
+}
 
 // *** SERVER ROUTES *** //
 app.use(express.json());
@@ -52,3 +65,8 @@ app.get('/data', heapController.getData, (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
+
+module.exports = {
+  scriptName,
+  inputURL
+}

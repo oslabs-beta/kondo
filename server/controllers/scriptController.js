@@ -1,33 +1,25 @@
 const fs = require('fs');
+const path = require('path');
+const { inputURL, scriptName } = require('../server');
 
-// the name of the script to be saved or executed
-const scriptName = process.argv[3];
+const trimScript = (input) => {
+  // remove first two lines containing URL and viewport info, replace blank lines with semicolons
+  let newString = input.slice(input.indexOf(`}`) + 3).replace(/\)\n/g, ');');;
+  // build an object containing the url and sanitized puppeteer script
+  return `exports.${scriptName} = {
+  url: '${inputURL}',
+  func: async (page) => {${newString}  }
+}
 
-// take the URL to open in Puppeteer from the input script parameter
-let inputURL;
-if (process.argv[4]) {
-  inputURL = process.argv[4];
+`;
 }
 
 exports.storeScript = (req, res, next) => {
-  let input = req.body.code;
-  // sanitize the puppeteer script sent from the chrome extension
-  // remove the first two lines containing the URL and viewport information
-  let newString = input.slice(input.indexOf(`)`) + 1);
-  // replace blank lines with semi-colons
-  newString = newString
-    .slice(newString.indexOf(`)`) + 3)
-    .replace(/\)\n/g, ');');
-  // build an object containing the url and sanitized puppeteer script
-  let newScript = `exports.${scriptName} = {
-    url: '${inputURL}',
-    func: async (page) => {${newString}  }
-  }
-
-  `;
+  // call helper function to process and return new script string
+  let newScript = trimScript(req.body.code);
   // add the object locally to the userscripts file
   fs.appendFile(
-    path.join(__dirname, './userscripts.js'),
+    path.join(__dirname, '../userscripts.js'),
     newScript,
     'utf-8',
     function(err) {
