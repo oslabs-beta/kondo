@@ -1,0 +1,577 @@
+// result.value is an object of the following format:
+// {"type":"string","value":"foofoofoofoofoofoofoofoofoo...}
+
+{
+  "result": [
+    {
+      "name": "0",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "1",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "2",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "3",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "4",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "5",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "6",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "7",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "8",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "9",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "10",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "11",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "12",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "13",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "14",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "15",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "16",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "17",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "18",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "19",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "20",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "21",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "22",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "23",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "24",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "25",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "26",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": true,
+      "isOwn": true
+    },
+    {
+      "name": "length",
+      "value": [Object],
+      "writable": true,
+      "configurable": false,
+      "enumerable": false,
+      "isOwn": true
+    },
+    {
+      "name": "constructor",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "concat",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "copyWithin",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "fill",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "find",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "findIndex",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "lastIndexOf",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "pop",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "push",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "reverse",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "shift",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "unshift",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "slice",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "sort",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "splice",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "includes",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "indexOf",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "join",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "keys",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "entries",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "values",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "forEach",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "filter",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "flat",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "flatMap",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "map",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "every",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "some",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "reduce",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "reduceRight",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "toLocaleString",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "toString",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "Symbol(Symbol.iterator)",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false,
+      "symbol": [Object]
+    },
+    {
+      "name": "Symbol(Symbol.unscopables)",
+      "value": [Object],
+      "writable": false,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false,
+      "symbol": [Object]
+    },
+    {
+      "name": "__defineGetter__",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "__defineSetter__",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "hasOwnProperty",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "__lookupGetter__",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "__lookupSetter__",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "isPrototypeOf",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "propertyIsEnumerable",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "valueOf",
+      "value": [Object],
+      "writable": true,
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    },
+    {
+      "name": "__proto__",
+      "get": [Object],
+      "set": [Object],
+      "configurable": true,
+      "enumerable": false,
+      "isOwn": false
+    }
+  ]
+}
