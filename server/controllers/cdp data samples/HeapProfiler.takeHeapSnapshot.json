@@ -1,0 +1,69 @@
+// When parsed with heap-snapshot parser, HeapProfiler.takeHeapSnapshot returns an array of nodes - 
+// below is an example of a single node that would be returned in the array
+
+[
+  Node {
+    type: 'synthetic',
+    name: '(Internalized strings)',
+    id: 5,
+    self_size: 0,
+    edge_count: 1,
+    trace_node_id: 0,
+    references: [
+      Edge {
+        type: 'internal',
+        name_or_index: '1',
+        name: '1',
+        toNodeIndex: 6209,
+        toNode: Node {
+          type: 'array',
+          name: '',
+          id: 53251,
+          self_size: 65556,
+          edge_count: 6673,
+          trace_node_id: 0,
+          references: [Array],
+          referrers: [Array]
+        },
+        fromNode: Node {
+          type: 'synthetic',
+          name: '(Internalized strings)',
+          id: 5,
+          self_size: 0,
+          edge_count: 1,
+          trace_node_id: 0,
+          references: [Circular],
+          referrers: [Array]
+        }
+      }
+    ],
+    referrers: [
+      Edge {
+        type: 'element',
+        name_or_index: '',
+        name: '',
+        toNodeIndex: 2,
+        toNode: Node {
+          type: 'synthetic',
+          name: '(Internalized strings)',
+          id: 5,
+          self_size: 0,
+          edge_count: 1,
+          trace_node_id: 0,
+          references: [Array],
+          referrers: [Circular]
+        },
+        fromNode: Node {
+          type: 'synthetic',
+          name: '(GC roots)',
+          id: 3,
+          self_size: 0,
+          edge_count: 23,
+          trace_node_id: 0,
+          references: [Array],
+          referrers: [Array]
+        }
+      }
+    ]
+  }
+]
