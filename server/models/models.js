@@ -25,15 +25,17 @@ const usersSchema = new Schema({
 
 const Users = mongoose.model("users", usersSchema);
 
-//sets schema for 'heaps'
-// const heapsSchema = new Schema({
-//   heapTotalSize: Number,
-
-// })
-
 //sets schema for 'sites"
+const sitesSchema = new Schema({
+  url: String,
+  siteName: String,
+  scripts: [String],
+  runs: [Object]
+});
 
+const Sites = mongoose.model("sites", sitesSchema);
 
 module.exports = {
-  
+  Users,
+  Sites
 }
