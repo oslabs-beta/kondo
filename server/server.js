@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const scriptController = require('./controllers/scriptController');
-const { createScript } = require('./createScript');
 const heapController = require('./controllers/heapController');
 const app = express();
 const PORT = 8000;
