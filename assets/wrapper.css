@@ -1,0 +1,24 @@
+h1 {
+  color:black;
+}
+
+#wrapper {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+.lineGraph {
+  width: 40%;
+  display: inline-block;
+  border: solid black;
+  margin-right: 10px;
+}
+
+.barGraph {
+  width: 40%;
+  display: inline-block;
+  border: solid black;
+  margin-left: 10px;
+}

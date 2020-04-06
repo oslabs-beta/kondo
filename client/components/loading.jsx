@@ -5,7 +5,7 @@ const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
-    // document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
+    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/data')
       .then(res => res.json())
       .then(data => {
@@ -13,9 +13,9 @@ const Loading = props => {
         props.updateState(data);
         setLoadingStatus(true);
       });
-    // return function cleanup() {
-    //   document.getElementById('body').style.backgroundColor = '';
-    // };
+    return function cleanup() {
+      document.getElementById('body').style.backgroundColor = '';
+    };
   });
 
   const moveRipple = () => {

@@ -46,19 +46,41 @@ const BarGraph = props => {
           ],
         }}
         options={{
-          scales: {
-            xAxes: [{ stacked: true }],
-            yAxes: [{ stacked: true }],
-            tooltips: {
-              mode: 'label',
-              callbacks: {
-                label: function(tooltipItem, data) {
-                  return 'LABEL';
-                },
-              },
-            },
+          legend: {
+            display: true,
+            position: 'right',
+            labels: {
+              borderWidth: 1,
+              fontColor: 'black',
+            }
           },
-        }}
+          scales: {
+            xAxes: [{
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Possible Memory Leaks',
+              }
+            }],
+            yAxes: [{
+              stacked: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'References (per snapshot)',
+
+              }
+            }],
+            // tooltips: {
+            //   mode: 'label',
+            //   callbacks: {
+            //     label: function (tooltipItem, data) {
+            //       return 'LABEL';
+            //     },
+            //   },
+            // },
+          },
+        }
+        }
       />
     </div>
   );
