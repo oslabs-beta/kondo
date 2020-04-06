@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const { inputURL, scriptName } = require('../server');
+const scriptName = process.argv[3];
+const inputURL = process.argv[4];
 
-const trimScript = (input) => {
+const trimScript = input => {
   // remove first two lines containing URL and viewport info, replace blank lines with semicolons
   let newString = input.slice(input.indexOf(`}`) + 3).replace(/\)\n/g, ');');;
   // build an object containing the url and sanitized puppeteer script
