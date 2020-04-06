@@ -22,7 +22,7 @@ if (!runMode) {
     'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.'
   );
 } else {
-    app.listen(PORT, () => console.log('kondo listening on port ' + PORT));
+    app.listen(PORT, () => console.log('Kondo is listening on port '+ PORT));
     // expects 'npm start -- create scriptName URL' or 'npm start -- run scriptName'
     if (runMode == 'create') {
       createScript(scriptName, inputURL);
@@ -65,8 +65,3 @@ app.get('/data', heapController.getData, (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
-
-module.exports = {
-  scriptName,
-  inputURL
-}
