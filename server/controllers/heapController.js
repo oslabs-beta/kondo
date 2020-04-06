@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
-const { scriptName } = require('../server');
+
+const scriptName = process.argv[3];
 
 const getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
@@ -152,12 +153,12 @@ const getData = async (req, res, next) => {
                 }
               }
             }
-          } catch (err) {}
+          } catch (err) { }
         }
         resolve();
       });
     }
-    const updateGrowthStatus = function(root1, root2) {
+    const updateGrowthStatus = function (root1, root2) {
       // using a breadth-first traversal, trace the shortest path to each node by edges
       const heapgraph1 = [root1];
       const heapgraph2 = [root2];
@@ -192,12 +193,12 @@ const getData = async (req, res, next) => {
               heapgraph2.push(edge2.toNode);
               visit.add(edge1.toNode.id);
             }
-          } catch (err) {}
+          } catch (err) { }
         }
       }
     };
 
-    const findGrowing = function(arr) {
+    const findGrowing = function (arr) {
       const growing = [];
       for (let node of arr) {
         if (node.growing) {

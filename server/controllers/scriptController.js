@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { inputURL, scriptName } = require('../server');
+
+const scriptName = process.argv[3];
+const inputURL = process.argv[4];
 
 const trimScript = (input) => {
   // remove first two lines containing URL and viewport info, replace blank lines with semicolons
@@ -22,7 +24,7 @@ exports.storeScript = (req, res, next) => {
     path.join(__dirname, '../userscripts.js'),
     newScript,
     'utf-8',
-    function(err) {
+    function (err) {
       if (err) next(err);
       console.log(
         `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`,
