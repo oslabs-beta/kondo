@@ -9,7 +9,6 @@ const Loading = props => {
     fetch('/data')
       .then(res => res.json())
       .then(data => {
-        console.log(data.memoryLeaks);
         props.updateState(data);
         setLoadingStatus(true);
       });
