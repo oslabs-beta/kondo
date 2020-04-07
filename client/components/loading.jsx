@@ -12,9 +12,9 @@ const Loading = props => {
         props.updateState(data);
         setLoadingStatus(true);
       });
-    return function cleanup() {
-      document.getElementById('body').style.backgroundColor = '';
-    };
+    // return function cleanup() {
+    //   document.getElementById('body').style.backgroundColor = '';
+    // };
   });
 
   const moveRipple = () => {
