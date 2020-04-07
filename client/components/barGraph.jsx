@@ -122,5 +122,4 @@ class BarGraph extends Component {
   }
 };
 
-const bar = document.getElementsByTagName('canvas');
 export default BarGraph;
