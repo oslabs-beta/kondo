@@ -18,39 +18,42 @@ const trimScript = (input) => {
 
 const scriptController = {};
 
-scriptController.postScript = (req, res, next) => {
-  Scripts.create(
-    {
-      name: scriptName,
-      script: `${req.body.code}`,
-    },
-    (err, scriptData) => {
-      if (err) return next(err);
-      console.log(
-        `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`
-      );
-      return next();
-    }
-  )
-}
-
-// scriptController.storeScript = (req, res, next) => {
-//   // call helper function to process and return new script string
-//   console.log('script:' + req.body.code);
-//   let newScript = trimScript(req.body.code);
-//   // add the object locally to the userscripts file
-//   fs.appendFile(
-//     path.join(__dirname, "../userscripts.js"),
-//     newScript,
-//     "utf-8",
-//     function (err) {
-//       if (err) next(err);
+/* MIDDLEWARE TO WRITE NEW SCRIPTS TO DB --
+for future implementation to migrate to db instead of storing new scripts in userscripts.js
+*/
+// scriptController.postScript = (req, res, next) => {
+//   Scripts.create(
+//     {
+//       name: scriptName,
+//       script: `${req.body.code}`,
+//     },
+//     (err, scriptData) => {
+//       if (err) return next(err);
 //       console.log(
 //         `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`
 //       );
-//       next();
+//       return next();
 //     }
-//   );
-// };
+//   )
+// }
 
-module.exports = scriptController;
+/* MIDDLEWARE TO WRITE NEW SCRIPT TO USERSCRIPTS.JS */
+scriptController.storeScript = (req, res, next) => {
+  // call helper function to process and return new script string
+  let newScript = trimScript(req.body.code);
+  // add the object locally to the userscripts file
+  fs.appendFile(
+    path.join(__dirname, "../userscripts.js"),
+    newScript,
+    "utf-8",
+    function (err) {
+      if (err) next(err);
+      console.log(
+        `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`
+      );
+      next();
+    }
+  );
+};
+
+module.exports = { scriptController };
