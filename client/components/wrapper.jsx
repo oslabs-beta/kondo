@@ -6,6 +6,7 @@ import BarGraph from './barGraph';
 const Wrapper = props => {
   return (
     <div id="wrapper">
+      <h1>Heap Analysis</h1>
       <LineGraph
         labels={props.lineGraphLabels}
         data={props.lineGraphData}

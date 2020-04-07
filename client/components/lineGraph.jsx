@@ -28,11 +28,11 @@ const LineGraph = props => {
           ]
         }}
         options={{
-          title: {
-            display: true,
-            text: ` Heap Data Analysis`,
-            fontSize: 32
-          },
+          // title: {
+          //   display: true,
+          //   text: ` Heap Data Analysis`,
+          //   fontSize: 32,
+          // },
           legend: {
             display: false,
             position: "right",
@@ -50,8 +50,7 @@ const LineGraph = props => {
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: "Time (ms)",
-                  fontSize: 24
+                  labelString: 'Time (ms)',
                 },
                 gridLines: {
                   display: true,
@@ -67,8 +66,7 @@ const LineGraph = props => {
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: "Memory Used Percentage (%)",
-                  fontSize: 24
+                  labelString: 'Heap Usage(%)',
                 },
                 gridLines: {
                   display: true,
@@ -81,28 +79,28 @@ const LineGraph = props => {
             mode: "label",
             //tooltip callbacks allow for multiple labels
             callbacks: {
-              title: function(tooltipItem, data) {
+              title: function (tooltipItem, data) {
                 return (
                   " Total Heap Usage At " +
                   data.labels[tooltipItem[0].index] / 1000 +
                   " seconds"
                 );
               },
-              label: function(tooltipItem, data) {
+              label: function (tooltipItem, data) {
                 return (
                   "Total Heap Percentage Usage: " +
                   data.datasets[tooltipItem.datasetIndex].data[
-                    tooltipItem.index
+                  tooltipItem.index
                   ] +
                   "%"
                 );
               },
-              afterLabel: function(tooltipItem, data) {
+              afterLabel: function (tooltipItem, data) {
                 return (
                   "Total Heap Used: " +
                   (
                     data.datasets[tooltipItem.datasetIndex].heapUsageTotal[
-                      tooltipItem.index
+                    tooltipItem.index
                     ] / 1048576
                   ).toFixed(2) +
                   " MB"

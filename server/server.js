@@ -22,13 +22,13 @@ if (!runMode) {
     'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.'
   );
 } else {
-  app.listen(PORT, () => console.log("Kondo is listening on port " + PORT));
+  app.listen(PORT, () => console.log('Kondo is listening on port ' + PORT));
   // expects 'npm start -- create scriptName URL' or 'npm start -- run scriptName'
-  if (runMode == "create") {
+  if (runMode == 'create') {
     createScript(scriptName, inputURL);
-  } else if (runMode != "run") {
+  } else if (runMode != 'run') {
     console.log(
-      'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.'
+      'Please enter "npm start -- create scriptName url" to create a new script, or "npm start -- run scriptName" to run an existing one.',
     );
     process.exit(0);
   }
