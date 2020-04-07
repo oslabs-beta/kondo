@@ -45,4 +45,11 @@ const runsSchema = new Schema({
 
 const Runs = mongoose.model("Runs", runsSchema);
 
-module.exports = { Sites, Runs };
+const scriptsSchema = new Schema({
+  name: String,
+  script: String
+});
+
+const Scripts = mongoose.model("Scripts", scriptsSchema);
+
+module.exports = { Sites, Runs, Scripts };
