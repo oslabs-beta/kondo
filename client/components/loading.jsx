@@ -5,11 +5,10 @@ const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
-    // document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
+    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/data')
       .then(res => res.json())
       .then(data => {
-        console.log(data.memoryLeaks);
         props.updateState(data);
         setLoadingStatus(true);
       });
