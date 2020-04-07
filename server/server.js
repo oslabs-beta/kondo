@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const scriptController = require("./controllers/scriptController");
 const { createScript } = require("./createScript");
-const heapController = require("./controllers/heapController");
+const { getData, heapController } = require("./controllers/heapController");
 const app = express();
 const PORT = 8000;
 
@@ -51,17 +51,13 @@ app.use(express.json());
 
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
 
-app.post(
-  "/code",
-  scriptController.storeScript,
-  scriptController.postHeaps,
-  (req, res) => {
-    res.status(200).send("OK");
-    process.exit(0);
-  }
+app.post("/code", scriptController.postScript, heapController.postHeap, (req, res) => {
+  res.status(200).send("OK");
+  process.exit(0);
+}
 );
 
-app.get("/data", heapController.getData, (req, res) => {
+app.get("/data", getData, (req, res) => {
   res.json(res.locals);
   process.exit(0);
 });
