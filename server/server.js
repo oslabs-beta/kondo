@@ -1,8 +1,8 @@
-const express = require('express');
-const path = require('path');
-const scriptController = require('./controllers/scriptController');
-const { createScript } = require('./createScript');
-const heapController = require('./controllers/heapController');
+const express = require("express");
+const path = require("path");
+const scriptController = require("./controllers/scriptController");
+const { createScript } = require("./createScript");
+const heapController = require("./controllers/heapController");
 const app = express();
 const PORT = 8000;
 
@@ -37,9 +37,9 @@ if (!runMode) {
 // *** ERROR HANDLING *** //
 function logErrors(err, req, res, next) {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: "Express error handler caught unknown middleware error",
     status: 400,
-    message: { err: 'An error occurred' },
+    message: { err: "An error occurred" },
   };
   const errorObj = Object.assign({}, defaultErr);
   console.log(errorObj.log);
@@ -49,19 +49,25 @@ function logErrors(err, req, res, next) {
 // *** SERVER ROUTES *** //
 app.use(express.json());
 
-// static files
-app.use('/assets', express.static(path.join(__dirname, '../assets')));
+app.use("/assets", express.static(path.join(__dirname, "../assets")));
 
-app.post('/code', scriptController.storeScript, (req, res) => {
-  res.status(200).send('OK');
-  process.exit(0);
-});
+app.post(
+  "/code",
+  scriptController.storeScript,
+  scriptController.postHeaps,
+  (req, res) => {
+    res.status(200).send("OK");
+    process.exit(0);
+  }
+);
 
-app.get('/data', heapController.getData, (req, res) => {
+app.get("/data", heapController.getData, (req, res) => {
   res.json(res.locals);
   process.exit(0);
 });
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
+
+app.post;
