@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
+const { Runs } = require('../models/models');
+
 const scriptName = process.argv[3];
 
 const getData = async (req, res, next) => {
@@ -152,12 +154,12 @@ const getData = async (req, res, next) => {
                 }
               }
             }
-          } catch (err) {}
+          } catch (err) { }
         }
         resolve();
       });
     }
-    const updateGrowthStatus = function(root1, root2) {
+    const updateGrowthStatus = function (root1, root2) {
       // using a breadth-first traversal, trace the shortest path to each node by edges
       const heapgraph1 = [root1];
       const heapgraph2 = [root2];
@@ -192,12 +194,12 @@ const getData = async (req, res, next) => {
               heapgraph2.push(edge2.toNode);
               visit.add(edge1.toNode.id);
             }
-          } catch (err) {}
+          } catch (err) { }
         }
       }
     };
 
-    const findGrowing = function(arr) {
+    const findGrowing = function (arr) {
       const growing = [];
       for (let node of arr) {
         if (node.growing) {
@@ -221,4 +223,26 @@ const getData = async (req, res, next) => {
   });
 };
 
-module.exports = { getData };
+const heapController = {};
+
+heapController.postHeap = (req, res, next) => {
+  Runs.create(
+    {
+      heapUsageOverTime: req.body.heapUsageOverTime,
+      memoryLeaks: req.body.memoryLeaks,
+    },
+    (err, postHeap) => {
+      if (err) {
+        console.log(`Error in databaseController.postHeaps`);
+        res.sendStatus(418);
+        return next();
+      } else {
+        res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
+        res.locals.memoryLeaks = postHeap.memoryLeaks;
+        return next();
+      }
+    }
+  );
+};
+
+module.exports = { getData, heapController };
