@@ -5,16 +5,12 @@ const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
-    document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
     fetch('/data')
       .then(res => res.json())
       .then(data => {
         props.updateState(data);
         setLoadingStatus(true);
       });
-    // return function cleanup() {
-    //   document.getElementById('body').style.backgroundColor = '';
-    // };
   });
 
   const moveRipple = () => {
