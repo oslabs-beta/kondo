@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
-const { scriptName } = require('../server');
+const scriptName = process.argv[3];
 
 const getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url

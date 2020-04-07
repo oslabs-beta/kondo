@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const Schema = mongoose.Schema;
-const MONGO_URI = `mongodb+srv://${process.env.PASSWORD}@cluster0-donuw.mongodb.net/test?retryWrites=true&w=majority`;
+const kondoURI = `mongodb+srv://${process.env.PASSWORD}@cluster0-donuw.mongodb.net/test?retryWrites=true&w=majority`;
 
-console.log(process.env.PASSWORD);
+const myURI = process.env.MONGO_URI || kondoURI;
 
 mongoose
-  .connect(MONGO_URI, {
+  .connect(myURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     dbName: "kondo",
@@ -18,27 +18,31 @@ mongoose
     console.log(err);
   });
 
-//sets a schema for the 'users'
-const usersSchema = new Schema({
-  username: String,
-  password: String,
-  //sites: ARRAY of Objects
-});
+/** FOR FUTURE USE, ONCE AUTHENTICATION MEASURES HAVE BEEN IMPLEMENTED */
 
-const Users = mongoose.model("users", usersSchema);
+// const usersSchema = new Schema({
+//   username: String,
+//   password: String,
+//   //sites: ARRAY of Objects
+// });
 
-//sets schema for 'sites"
+// const Users = mongoose.model("users", usersSchema);
+
+/*SETS SCHEMA FOR SITES SCHEMA*/
 const sitesSchema = new Schema({
   url: String,
   siteName: String,
   scripts: [String],
-  runs: [{}],
-  date: { type: Date, default: Date.now },
+  runs: [{ type: Schema.Types.ObjectId, ref: "Runs" }],
 });
 
-const Sites = mongoose.model("sites", sitesSchema);
+const Sites = mongoose.model("Sites", sitesSchema);
 
-module.exports = {
-  Users,
-  Sites,
-};
+const runsSchema = new Schema({
+  heapUsageOverTime: Object,
+  memoryLeaks: Object,
+});
+
+const Runs = mongoose.model("Runs", runsSchema);
+
+module.exports = { Sites, Runs };
