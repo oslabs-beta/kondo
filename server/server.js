@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const scriptController = require("./controllers/scriptController");
+const { scriptController } = require("./controllers/scriptController");
 const { createScript } = require("./createScript");
 const { getData, heapController } = require("./controllers/heapController");
 const app = express();
@@ -51,7 +51,7 @@ app.use(express.json());
 
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
 
-app.post("/code", scriptController.postScript, heapController.postHeap, (req, res) => {
+app.post("/code", scriptController.storeScript, heapController.postHeap, (req, res) => {
   res.status(200).send("OK");
   process.exit(0);
 }
