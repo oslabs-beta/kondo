@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
+const { Runs } = require('../models/models');
 
 const scriptName = process.argv[3];
 
@@ -222,4 +223,26 @@ const getData = async (req, res, next) => {
   });
 };
 
-module.exports = { getData };
+const heapController = {};
+
+heapController.postHeap = (req, res, next) => {
+  Runs.create(
+    {
+      heapUsageOverTime: req.body.heapUsageOverTime,
+      memoryLeaks: req.body.memoryLeaks,
+    },
+    (err, postHeap) => {
+      if (err) {
+        console.log(`Error in databaseController.postHeaps`);
+        res.sendStatus(418);
+        return next();
+      } else {
+        res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
+        res.locals.memoryLeaks = postHeap.memoryLeaks;
+        return next();
+      }
+    }
+  );
+};
+
+module.exports = { getData, heapController };
