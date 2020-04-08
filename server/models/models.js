@@ -28,7 +28,7 @@ mongoose
 
 // const Users = mongoose.model("users", usersSchema);
 
-/*SETS SCHEMA FOR SITES SCHEMA*/
+/* SITES SCHEMA */
 const sitesSchema = new Schema({
   url: String,
   siteName: String,
@@ -38,6 +38,7 @@ const sitesSchema = new Schema({
 
 const Sites = mongoose.model("Sites", sitesSchema);
 
+/* RUNS SCHEMA */
 const runsSchema = new Schema({
   heapUsageOverTime: Object,
   memoryLeaks: Object,
@@ -45,6 +46,7 @@ const runsSchema = new Schema({
 
 const Runs = mongoose.model("Runs", runsSchema);
 
+/* SCRIPTS SCHEMA -- NOT CURRENTLY IN USE */
 const scriptsSchema = new Schema({
   name: String,
   script: String

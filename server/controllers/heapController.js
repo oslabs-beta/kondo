@@ -1,15 +1,17 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
-const { Runs } = require('../models/models');
+// const { Runs } = require('../models/models');
 
 const scriptName = process.argv[3];
 
-const getData = async (req, res, next) => {
+const heapController = {};
+
+heapController.getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
   const browser = await puppeteer.launch({ headless: true, devtools: true });
   const page = (await browser.pages())[0];
-  // await page.goto(scripts[script].url);
+  await page.goto(scripts[scriptName].url);
   const client = await page.target().createCDPSession();
   await client.send('Page.navigate', { url: scripts[scriptName].url });
 
@@ -223,26 +225,26 @@ const getData = async (req, res, next) => {
   });
 };
 
-const heapController = {};
 
-heapController.postHeap = (req, res, next) => {
-  Runs.create(
-    {
-      heapUsageOverTime: req.body.heapUsageOverTime,
-      memoryLeaks: req.body.memoryLeaks,
-    },
-    (err, postHeap) => {
-      if (err) {
-        console.log(`Error in databaseController.postHeaps`);
-        res.sendStatus(418);
-        return next();
-      } else {
-        res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
-        res.locals.memoryLeaks = postHeap.memoryLeaks;
-        return next();
-      }
-    }
-  );
-};
+/* MIDDLEWARE TO POST HEAP DATA TO DB */
+// heapController.postHeap = (req, res, next) => {
+//   Runs.create(
+//     {
+//       heapUsageOverTime: req.body.heapUsageOverTime,
+//       memoryLeaks: req.body.memoryLeaks,
+//     },
+//     (err, postHeap) => {
+//       if (err) {
+//         console.log(`Error in databaseController.postHeaps`);
+//         res.sendStatus(418);
+//         return next();
+//       } else {
+//         res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
+//         res.locals.memoryLeaks = postHeap.memoryLeaks;
+//         return next();
+//       }
+//     }
+//   );
+// };
 
-module.exports = { getData, heapController };
+module.exports = heapController;
