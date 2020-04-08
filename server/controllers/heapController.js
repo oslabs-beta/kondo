@@ -1,8 +1,7 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
-
-const script = process.argv.slice(3)[0];
+const scriptName = process.argv[3];
 
 const getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
@@ -10,7 +9,7 @@ const getData = async (req, res, next) => {
   const page = (await browser.pages())[0];
   // await page.goto(scripts[script].url);
   const client = await page.target().createCDPSession();
-  await client.send('Page.navigate', { url: scripts[script].url });
+  await client.send('Page.navigate', { url: scripts[scriptName].url });
 
   // enable CDP domains necessary for data collection
   await client.send('Page.enable');
@@ -36,7 +35,7 @@ const getData = async (req, res, next) => {
 
     let i = 0;
     while (i < 2) {
-      await scripts[script].func(page);
+      await scripts[scriptName].func(page);
       i += 1;
     }
 
