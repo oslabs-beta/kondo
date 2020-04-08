@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const scriptName = process.argv[3];
 const inputURL = process.argv[4];
-const { Runs, Scripts } = require("../models/models");
+// const { Runs, Scripts } = require("../models/models");
 
 const trimScript = (input) => {
   // remove first two lines containing URL and viewport info, replace blank lines with semicolons

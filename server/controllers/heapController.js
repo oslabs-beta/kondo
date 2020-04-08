@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
-const { Runs } = require('../models/models');
+// const { Runs } = require('../models/models');
 
 const scriptName = process.argv[3];
 
