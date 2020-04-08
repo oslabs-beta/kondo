@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const pathToExtension = require('path').join(__dirname, '../extension');
+const pathToExtension = require('path').join(__dirname, '../node_modules/kondo-puppeteer-recorder/build');
 const scripts = require('./userscripts.js');
 
 // RECORD USER ACTIONS FROM BROWSER AND CREATE PUPPET SCRIPT

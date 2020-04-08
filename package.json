@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "heapsnapshot-parser": "^0.1.0",
+    "kondo-puppeteer-recorder": "^0.1.0",
     "loaders.css": "^0.1.2",
     "pg": "^7.18.1",
     "puppeteer": "^2.1.1",
