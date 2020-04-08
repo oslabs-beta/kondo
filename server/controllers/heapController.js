@@ -226,27 +226,25 @@ heapController.getData = async (req, res, next) => {
 };
 
 
-const heapController = {};
-
 /* MIDDLEWARE TO POST HEAP DATA TO DB */
-heapController.postHeap = (req, res, next) => {
-  Runs.create(
-    {
-      heapUsageOverTime: req.body.heapUsageOverTime,
-      memoryLeaks: req.body.memoryLeaks,
-    },
-    (err, postHeap) => {
-      if (err) {
-        console.log(`Error in databaseController.postHeaps`);
-        res.sendStatus(418);
-        return next();
-      } else {
-        res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
-        res.locals.memoryLeaks = postHeap.memoryLeaks;
-        return next();
-      }
-    }
-  );
-};
+// heapController.postHeap = (req, res, next) => {
+//   Runs.create(
+//     {
+//       heapUsageOverTime: req.body.heapUsageOverTime,
+//       memoryLeaks: req.body.memoryLeaks,
+//     },
+//     (err, postHeap) => {
+//       if (err) {
+//         console.log(`Error in databaseController.postHeaps`);
+//         res.sendStatus(418);
+//         return next();
+//       } else {
+//         res.locals.heapUsageOverTime = postHeap.heapUsageOverTime;
+//         res.locals.memoryLeaks = postHeap.memoryLeaks;
+//         return next();
+//       }
+//     }
+//   );
+// };
 
-module.exports = { getData, heapController };
+module.exports = heapController;
