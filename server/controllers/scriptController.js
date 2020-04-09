@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const scriptName = process.argv[3];
-const inputURL = process.argv[4];
+const scriptName = process.argv[2];
+const inputURL = process.argv[3];
 // const { Runs, Scripts } = require("../models/models");
 
 const trimScript = (input) => {
@@ -49,11 +49,11 @@ scriptController.storeScript = (req, res, next) => {
     function (err) {
       if (err) next(err);
       console.log(
-        `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`
+        `Saved successfully! You can run this test by entering "npm run run-script ${scriptName}"`
       );
       next();
     }
   );
 };
 
-module.exports = { scriptController };
+module.exports = scriptController;
