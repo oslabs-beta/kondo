@@ -5,6 +5,30 @@ const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
 
   useEffect(() => {
+    $('body').ripples({ resolution: 256, refraction: 10, dropRadius: 60 });
+    const textWrapper = document.querySelector('.ml9 .letters');
+    textWrapper.innerHTML = textWrapper.textContent.replace(
+      /\S/g,
+      "<span class='letter'>$&</span>",
+    );
+
+    anime
+      .timeline({ loop: true })
+      .add({
+        targets: '.ml9 .letter',
+        scale: [0, 1],
+        duration: 1500,
+        elasticity: 600,
+        delay: (el, i) => 45 * (i + 1),
+      })
+      .add({
+        targets: '.ml9',
+        opacity: 0,
+        duration: 1000,
+        easing: 'easeOutExpo',
+        delay: 1000,
+      });
+
     fetch('/data')
       .then(res => res.json())
       .then(data => {
@@ -13,40 +37,16 @@ const Loading = props => {
       });
   });
 
-  const moveRipple = () => {
-    const ripple = document.getElementsByClassName(
-      'ball-scale-ripple-multiple',
-    )[0];
-    const newRipple = ripple.cloneNode(true);
-    const w = document.documentElement.clientWidth;
-    const h = document.documentElement.clientHeight;
-    let width = Math.floor(Math.random() * w);
-    let height = Math.floor(Math.random() * h);
-    while (width < 300 || width > w - 300) {
-      width = Math.floor(Math.random() * w);
-    }
-    while (height < 300 || height > h - 300) {
-      height = Math.floor(Math.random() * h);
-    }
-    newRipple.style.left = width.toString() + 'px';
-    newRipple.style.top = height.toString() + 'px';
-    newRipple.firstChild.addEventListener('animationiteration', moveRipple);
-    document.getElementById('pond').appendChild(newRipple);
-    ripple.remove();
-  };
-
   if (analysisComplete) {
     return <Redirect to="/analytics" />;
   }
   return (
-    <div id="pond">
-      <h1>Loading...</h1>
-      <div className="ball-scale-ripple-multiple">
-        <div onAnimationIteration={moveRipple} />
-        <div />
-        <div />
-        <div />
-      </div>
+    <div>
+      <h1 class="ml9">
+        <span class="text-wrapper">
+          <span class="letters">Loading...</span>
+        </span>
+      </h1>
     </div>
   );
 };
