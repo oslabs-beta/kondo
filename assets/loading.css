@@ -1,12 +1,17 @@
 h1 {
   text-align: center;
-  color: rgba(255, 255, 255, 0.1);
+  color: rgb(0, 0, 0);
+}
+
+h2 {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 body {
   width: 100%;
   height: 100vh;
-  background: url(img.jpg) no-repeat center;
+  background: url(img-color.jpg) no-repeat center;
   background-size: cover;
 }
 
@@ -29,25 +34,4 @@ body {
   transform-origin: 50% 100%;
   display: inline-block;
   line-height: 1em;
-}
-
-.vertical-centered-box {
-  position: absolute;
-  .size(100%);
-  text-align: center;
-  &:after {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em;
-  }
-  .content {
-    .box-sizing(border-box);
-    display: inline-block;
-    vertical-align: middle;
-    text-align: left;
-    font-size: 0;
-  }
-}
 }
