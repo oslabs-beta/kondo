@@ -12,7 +12,7 @@ module.exports = {
   devServer: {
     publicPath: '/assets/',
     proxy: {
-      '/': 'http://localhost:8000',
+      '/': 'http://localhost:8001',
     },
   },
   module: {
