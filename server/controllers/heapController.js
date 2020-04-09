@@ -11,7 +11,6 @@ heapController.getData = async (req, res, next) => {
   // launch puppeteer browser, create CDP session, and navigate to inputted url
   const browser = await puppeteer.launch({ headless: true, devtools: true });
   const page = (await browser.pages())[0];
-  await page.goto(scripts[scriptName].url);
   const client = await page.target().createCDPSession();
   await client.send('Page.navigate', { url: scripts[scriptName].url });
 
@@ -156,12 +155,12 @@ heapController.getData = async (req, res, next) => {
                 }
               }
             }
-          } catch (err) { }
+          } catch (err) {}
         }
         resolve();
       });
     }
-    const updateGrowthStatus = function (root1, root2) {
+    const updateGrowthStatus = function(root1, root2) {
       // using a breadth-first traversal, trace the shortest path to each node by edges
       const heapgraph1 = [root1];
       const heapgraph2 = [root2];
@@ -196,12 +195,12 @@ heapController.getData = async (req, res, next) => {
               heapgraph2.push(edge2.toNode);
               visit.add(edge1.toNode.id);
             }
-          } catch (err) { }
+          } catch (err) {}
         }
       }
     };
 
-    const findGrowing = function (arr) {
+    const findGrowing = function(arr) {
       const growing = [];
       for (let node of arr) {
         if (node.growing) {
@@ -224,7 +223,6 @@ heapController.getData = async (req, res, next) => {
     next();
   });
 };
-
 
 /* MIDDLEWARE TO POST HEAP DATA TO DB */
 // heapController.postHeap = (req, res, next) => {
