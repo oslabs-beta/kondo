@@ -34,6 +34,7 @@ const Loading = props => {
       .then(res => res.json())
       .then(data => {
         props.updateState(data);
+        $('body').ripples('hide');
         setLoadingStatus(true);
       });
   });

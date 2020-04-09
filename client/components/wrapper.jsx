@@ -4,6 +4,7 @@ import BarGraph from './barGraph';
 
 //props are being drilled from App.jsx
 const Wrapper = props => {
+  document.body.style.background = 'url(img-bw.jpg)';
   return (
     <div id="wrapper">
       <h1>Heap Analysis</h1>
