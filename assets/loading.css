@@ -1,13 +1,12 @@
 h1 {
   text-align: center;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.1);
 }
 
 body {
   width: 100%;
   height: 100vh;
-  background: url(https://lh3.googleusercontent.com/proxy/MMfk_WXx6xlVwnq7MN9vrBu-N0F0KyEvkF50cOVi4wFbeUmZSe6jVCF1w8XvixVy9EbhkwuUCkFWfK-1B3cyQ4b8HsWaRFDJQS4-iYHlOkw)
-    no-repeat center;
+  background: url(img.jpg) no-repeat center;
   background-size: cover;
 }
 
