@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "heapsnapshot-parser": "^0.1.0",
+    "kondo-recorder": "^0.7.4",
     "loaders.css": "^0.1.2",
     "mongoose": "^5.9.7",
     "pg": "^7.18.1",
