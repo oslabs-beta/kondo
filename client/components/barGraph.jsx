@@ -9,8 +9,8 @@ class BarGraph extends Component {
       showModal: false,
       idx: undefined,
       element: '',
-      details: []
-    }
+      details: [],
+    };
 
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -20,31 +20,34 @@ class BarGraph extends Component {
       showModal: true,
       idx: index,
       element: this.props.labels[index],
-      details: this.props.details[index]
+      details: this.props.details[index],
     });
   }
   render() {
     const { details } = this.state;
     const properties = details.map((property, i) => {
       return (
-        <ListGroup.Item key={i}>Name: {property.name}<br />
+        <ListGroup.Item key={i}>
+          Name: {property.name}
+          <br />
           Type: {property.type} <br />
-            Value: {property.value}</ListGroup.Item >
-      )
+          Value: {property.value}
+        </ListGroup.Item>
+      );
     });
 
     return (
-      <div className="barGraph" >
-        <Modal show={this.state.showModal} onHide={() => {
-          this.setState({ showModal: false })
-        }}>
+      <div className="barGraph">
+        <Modal
+          show={this.state.showModal}
+          onHide={() => {
+            this.setState({ showModal: false });
+          }}
+        >
           <Modal.Header closeButton>
             <Modal.Title>{this.state.element} Properties</Modal.Title>
           </Modal.Header>
-          <ListGroup variant='flush'>
-            {properties}
-          </ListGroup>
-
+          <ListGroup variant="flush">{properties}</ListGroup>
         </Modal>
         <Bar
           data={{
@@ -95,31 +98,33 @@ class BarGraph extends Component {
               labels: {
                 borderWidth: 1,
                 fontColor: 'black',
-              }
+              },
             },
             scales: {
-              xAxes: [{
-                stacked: true,
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Possible Memory Leaks',
-                }
-              }],
-              yAxes: [{
-                stacked: true,
-                scaleLabel: {
-                  display: true,
-                  labelString: 'References (per snapshot)',
-
-                }
-              }],
+              xAxes: [
+                {
+                  stacked: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'Possible Memory Leaks',
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  stacked: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: 'References (per snapshot)',
+                  },
+                },
+              ],
             },
-          }
-          }
+          }}
         />
       </div>
-    )
+    );
   }
-};
+}
 
 export default BarGraph;

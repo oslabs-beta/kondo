@@ -7,11 +7,6 @@ const Loading = props => {
   useEffect(() => {
     if (!analysisComplete) {
       $('body').ripples({ resolution: 256, refraction: 10, dropRadius: 60 });
-      const textWrapper = document.querySelector('.ml9 .letters');
-      textWrapper.innerHTML = textWrapper.textContent.replace(
-        /\S/g,
-        "<span class='letter'>$&</span>",
-      );
 
       anime
         .timeline({ loop: true })
@@ -35,6 +30,7 @@ const Loading = props => {
       .then(data => {
         props.updateState(data);
         $('body').ripples('hide');
+        document.body.style.backgroundImage = 'none';
         setLoadingStatus(true);
       });
   });
@@ -45,11 +41,20 @@ const Loading = props => {
   }
   return (
     <div>
-      <h1 class="ml9">
+      <h2 class="ml9">
         <span class="text-wrapper">
-          <span class="letters">Loading...</span>
+          <span class="letter">L</span>
+          <span class="letter">o</span>
+          <span class="letter">a</span>
+          <span class="letter">d</span>
+          <span class="letter">i</span>
+          <span class="letter">n</span>
+          <span class="letter">g</span>
+          <span class="letter">.</span>
+          <span class="letter">.</span>
+          <span class="letter">.</span>
         </span>
-      </h1>
+      </h2>
     </div>
   );
 };

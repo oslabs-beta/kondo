@@ -1,7 +1,3 @@
-h1 {
-  color:white;
-}
-
 #wrapper {
   width: 100%;
   height: 100%;
@@ -12,18 +8,16 @@ h1 {
 .lineGraph {
   width: 40%;
   display: inline-block;
-  /* border: solid black; */
   margin-right: 10px;
 }
 
 .barGraph {
   width: 40%;
   display: inline-block;
-  /* border: solid black; */
   margin-left: 10px;
 }
 
-.modal-content{
+.modal-content {
   display: inline-block;
   width: 50%;
   height: 550px;
