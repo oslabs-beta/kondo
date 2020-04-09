@@ -30,7 +30,7 @@ for future implementation to migrate to db instead of storing new scripts in use
 //     (err, scriptData) => {
 //       if (err) return next(err);
 //       console.log(
-//         `Saved successfully! You can run this test by entering "npm start -- run ${scriptName}"`
+//         `Saved successfully! You can run this test by entering "npm -- run ${scriptName}"`
 //       );
 //       return next();
 //     }
@@ -49,7 +49,7 @@ scriptController.storeScript = (req, res, next) => {
     function (err) {
       if (err) next(err);
       console.log(
-        `Saved successfully! You can run this test by entering "npm start ${scriptName}"`
+        `Saved successfully! You can run this test by entering "npm run script ${scriptName}"`
       );
       next();
     }
