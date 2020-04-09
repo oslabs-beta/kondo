@@ -6,7 +6,7 @@
   "scripts": {
     "script": "npm run open && cross-env NODE_ENV=production node server/runScript.js",
     "record": "cross-env NODE_ENV=production node server/createScript.js",
-    "open": "open http://localhost:8000",
+    "open": "opener http://localhost:8000",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open\" \"nodemon --inspect=9222 server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +22,7 @@
     "kondo-recorder": "^0.7.4",
     "loaders.css": "^0.1.2",
     "mongoose": "^5.9.7",
+    "opener": "^1.5.1",
     "pg": "^7.18.1",
     "puppeteer": "^2.1.1",
     "react": "^16.12.0",
