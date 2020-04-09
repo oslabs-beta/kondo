@@ -49,7 +49,7 @@ scriptController.storeScript = (req, res, next) => {
     function (err) {
       if (err) next(err);
       console.log(
-        `Saved successfully! You can run this test by entering "npm run run-script ${scriptName}"`
+        `Saved successfully! You can run this test by entering "npm start ${scriptName}"`
       );
       next();
     }
