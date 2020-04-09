@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "script": "cross-env NODE_ENV=production node server/runScript.js",
+    "script": "npm run open && cross-env NODE_ENV=production node server/runScript.js",
     "record": "cross-env NODE_ENV=production node server/createScript.js",
     "open": "start http://localhost:8000",
     "build": "cross-env NODE_ENV=production webpack",
