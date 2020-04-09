@@ -3,7 +3,7 @@ const path = require("path");
 const scriptController = require("./controllers/scriptController");
 const heapController = require("./controllers/heapController");
 const app = express();
-const PORT = 8001;
+const PORT = 8000;
 
 // *** ERROR HANDLING *** //
 function logErrors(err, req, res, next) {
