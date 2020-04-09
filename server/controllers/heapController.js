@@ -3,7 +3,7 @@ const scripts = require('../userscripts.js');
 const parser = require('heapsnapshot-parser');
 // const { Runs } = require('../models/models');
 
-const scriptName = process.argv[3];
+const scriptName = process.argv[2];
 
 const heapController = {};
 
