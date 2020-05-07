@@ -10,7 +10,7 @@ Save all of your browser actions and state changes so you only have to do them o
 
 Install our npm package
 
-`npm install kondo` !! currently unavailable !!
+`npm install kondo`
 
 To create a script to be reproduced within Puppeteer and analyzed for memory leaks, run:
 
