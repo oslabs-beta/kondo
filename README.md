@@ -14,7 +14,7 @@ Install our npm package
 
 To create a script to be reproduced within Puppeteer and analyzed for memory leaks, run:
 
-`npm start -- create <scriptName> <url>`
+`npm run record <scriptName> <url>`
 
 This will load your site into a browser with a customized version of the Puppeteer Recorder Chrome extension (https://github.com/checkly/puppeteer-recorder). 
 Click on the extension and press 'Start' to begin recording. 
@@ -23,7 +23,7 @@ Press 'Stop' in the extension when finished to end recording and store a Puppete
 
 To run an existing script and analyze your page for memory leaks, run:
 
-`npm start -- run <scriptName>`
+`npm run script <scriptName>`
 
 Open http://localhost:8000 to view your results. It can take 30-60 seconds to finish loading.
 
