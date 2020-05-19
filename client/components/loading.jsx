@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
+  const [statusMessage, updateStatus] = useState('Loading...');
 
   useEffect(() => {
     if (!analysisComplete) {
@@ -39,21 +40,16 @@ const Loading = props => {
     console.log('redirecting');
     return <Redirect to="/analytics" />;
   }
+
+  let status = statusMessage.split('');
+  status = status.map(letter => {
+    return <span class="letter">{letter}</span>;
+  });
+
   return (
     <div>
       <h2 class="ml9">
-        <span class="text-wrapper">
-          <span class="letter">L</span>
-          <span class="letter">o</span>
-          <span class="letter">a</span>
-          <span class="letter">d</span>
-          <span class="letter">i</span>
-          <span class="letter">n</span>
-          <span class="letter">g</span>
-          <span class="letter">.</span>
-          <span class="letter">.</span>
-          <span class="letter">.</span>
-        </span>
+        <span class="text-wrapper">{status}</span>
       </h2>
     </div>
   );
