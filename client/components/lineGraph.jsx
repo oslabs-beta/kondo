@@ -1,18 +1,24 @@
 import React from 'react';
+//Type of chart imported from react chartjs
 import { Line } from 'react-chartjs-2';
 
+//props are being drilled from wrapper
 const LineGraph = props => {
   return (
     <div className="lineGraph">
       <Line
         data={{
+          //labels display on the x-axis as Heap Usage in bits.
           labels: props.labels,
           datasets: [
             {
               label: 'Heap Use Percentage',
+              //Each element of props.data is a individual heap usage.
+              //data is displayed on the y-axis
               data: props.data.map(el =>
                 ((el / props.heapSize) * 100).toFixed(2),
               ),
+              //
               heapUsageTotal: props.data,
               backgroundColor: 'rgba(75, 192, 192, 1)',
               borderColor: 'rgba(54, 145, 235, 1)',
@@ -22,11 +28,6 @@ const LineGraph = props => {
           ],
         }}
         options={{
-          title: {
-            display: true,
-            text: ` Heap Data Analysis`,
-            fontSize: 32,
-          },
           legend: {
             display: false,
             position: 'right',
@@ -45,7 +46,6 @@ const LineGraph = props => {
                 scaleLabel: {
                   display: true,
                   labelString: 'Time (ms)',
-                  fontSize: 24,
                 },
                 gridLines: {
                   display: true,
@@ -61,8 +61,7 @@ const LineGraph = props => {
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: 'Memory Used Percentage (%)',
-                  fontSize: 24,
+                  labelString: 'Heap Usage(%)',
                 },
                 gridLines: {
                   display: true,
@@ -73,6 +72,7 @@ const LineGraph = props => {
           },
           tooltips: {
             mode: 'label',
+            //tooltip callbacks allow for multiple labels
             callbacks: {
               title: function(tooltipItem, data) {
                 return (
@@ -108,7 +108,7 @@ const LineGraph = props => {
           elements: {
             point: {
               pointStyle: 'rectRounded',
-              radius: 10,
+              radius: 5,
             },
           },
         }}

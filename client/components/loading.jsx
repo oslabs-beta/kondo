@@ -3,55 +3,54 @@ import { Redirect } from 'react-router-dom';
 
 const Loading = props => {
   const [analysisComplete, setLoadingStatus] = useState(false);
+  const [statusMessage, updateStatus] = useState('Loading...');
 
   useEffect(() => {
-    // document.getElementById('body').style.backgroundColor = 'rgb(2, 2, 24)';
+    if (!analysisComplete) {
+      $('body').ripples({ resolution: 256, refraction: 10, dropRadius: 60 });
+
+      anime
+        .timeline({ loop: true })
+        .add({
+          targets: '.ml9 .letter',
+          scale: [0, 1],
+          duration: 1500,
+          elasticity: 600,
+          delay: (el, i) => 45 * (i + 1),
+        })
+        .add({
+          targets: '.ml9',
+          opacity: 0,
+          duration: 1000,
+          easing: 'easeOutExpo',
+          delay: 1000,
+        });
+    }
     fetch('/data')
       .then(res => res.json())
       .then(data => {
-        console.log(data.memoryLeaks);
         props.updateState(data);
+        $('body').ripples('hide');
+        document.body.style.backgroundImage = 'none';
         setLoadingStatus(true);
       });
-    // return function cleanup() {
-    //   document.getElementById('body').style.backgroundColor = '';
-    // };
   });
 
-  const moveRipple = () => {
-    const ripple = document.getElementsByClassName(
-      'ball-scale-ripple-multiple',
-    )[0];
-    const newRipple = ripple.cloneNode(true);
-    const w = document.documentElement.clientWidth;
-    const h = document.documentElement.clientHeight;
-    let width = Math.floor(Math.random() * w);
-    let height = Math.floor(Math.random() * h);
-    while (width < 300 || width > w - 300) {
-      width = Math.floor(Math.random() * w);
-    }
-    while (height < 300 || height > h - 300) {
-      height = Math.floor(Math.random() * h);
-    }
-    newRipple.style.left = width.toString() + 'px';
-    newRipple.style.top = height.toString() + 'px';
-    newRipple.firstChild.addEventListener('animationiteration', moveRipple);
-    document.getElementById('pond').appendChild(newRipple);
-    ripple.remove();
-  };
-
   if (analysisComplete) {
+    console.log('redirecting');
     return <Redirect to="/analytics" />;
   }
+
+  let status = statusMessage.split('');
+  status = status.map(letter => {
+    return <span class="letter">{letter}</span>;
+  });
+
   return (
-    <div id="pond">
-      <h1>Loading...</h1>
-      <div className="ball-scale-ripple-multiple">
-        <div onAnimationIteration={moveRipple} />
-        <div />
-        <div />
-        <div />
-      </div>
+    <div>
+      <h2 class="ml9">
+        <span class="text-wrapper">{status}</span>
+      </h2>
     </div>
   );
 };

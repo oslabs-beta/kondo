@@ -1,0 +1,25 @@
+#wrapper {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+.lineGraph {
+  width: 40%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.barGraph {
+  width: 40%;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.modal-content {
+  display: inline-block;
+  width: 50%;
+  height: 550px;
+  overflow: scroll;
+}
